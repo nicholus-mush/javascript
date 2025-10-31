@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        .task-header {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .task-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .task-category {
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            background: white;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button.secondary {
+            background: linear-gradient(135deg, #48bb78 0%, #2f855a 100%);
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .tasks-container {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .task-item {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+            cursor: grab;
+        }
+
+        .task-item.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+
+        .task-item.completed {
+            opacity: 0.7;
+            background: #f0fff4;
+            border-color: #48bb78;
+        }
+
+        .task-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #cbd5e0;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .task-checkbox.checked {
+            background: #48bb78;
+            border-color: #48bb78;
+            color: white;
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .task-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9em;
+            color: #718096;
+        }
+
+        .task-category-badge {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .task-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        .task-btn:hover {
+            background: #e2e8f0;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #a0aec0;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            color: #718096;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✓ Task Manager</h1>
+            <p class="subtitle">Organize your tasks with drag & drop and local storage</p>
+        </header>
+
+        <div class="task-header">
+            <input type="text" class="task-input" id="taskInput" placeholder="Enter a new task...">
+            <select class="task-category" id="taskCategory">
+                <option value="personal">Personal</option>
+                <option value="work">Work</option>
+                <option value="shopping">Shopping</option>
+                <option value="health">Health</option>
+            </select>
+            <button onclick="addTask()" class="secondary">Add Task</button>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" onclick="setFilter('all')">All Tasks</button>
+            <button class="filter-btn" onclick="setFilter('active')">Active</button>
+            <button class="filter-btn" onclick="setFilter('completed')">Completed</button>
+            <button class="filter-btn" onclick="setFilter('personal')">Personal</button>
+            <button class="filter-btn" onclick="setFilter('work')">Work</button>
+        </div>
+
+        <div class="tasks-container" id="tasksContainer">
+            <div class="empty-state" id="emptyState">
+                <h3>No tasks yet</h3>
+                <p>Add your first task to get started!</p>
+            </div>
+        </div>
+
+        <div class="stats" id="taskStats">
+            <span>Total: <strong id="totalTasks">0</strong></span>
+            <span>Active: <strong id="activeTasks">0</strong></span>
+            <span>Completed: <strong id="completedTasks">0</strong></span>
+        </div>
+    </div>
+
+    <script>
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        let currentFilter = 'all';
+        let dragStartIndex;
+
+        function init() {
+            renderTasks();
+            updateStats();
+            
+            // Enter key support
+            document.getElementById('taskInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    addTask();
+                }
+            });
+        }
+
+        function addTask() {
+            const input = document.getElementById('taskInput');
+            const category = document.getElementById('taskCategory');
+            const title = input.value.trim();
+
+            if (title) {
+                const task = {
+                    id: Date.now(),
+                    title: title,
+                    category: category.value,
+                    completed: false,
+                    createdAt: new Date().toISOString()
+                };
+
+                tasks.unshift(task);
+                saveTasks();
+                renderTasks();
+                updateStats();
+                input.value = '';
+            }
+        }
+
+        function deleteTask(id) {
+            tasks = tasks.filter(task => task.id !== id);
+            saveTasks();
+            renderTasks();
+            updateStats();
+        }
+
+        function toggleTask(id) {
+            tasks = tasks.map(task => 
+                task.id === id ? { ...task, completed: !task.completed } : task
+            );
+            saveTasks();
+            renderTasks();
+            updateStats();
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            renderTasks();
+        }
+
+        function renderTasks() {
+            const container = document.getElementById('tasksContainer');
+            const emptyState = document.getElementById('emptyState');
+
+            let filteredTasks = tasks;
+
+            if (currentFilter === 'active') {
+                filteredTasks = tasks.filter(task => !task.completed);
+            } else if (currentFilter === 'completed') {
+                filteredTasks = tasks.filter(task => task.completed);
+            } else if (currentFilter !== 'all') {
+                filteredTasks = tasks.filter(task => task.category === currentFilter);
+            }
+
+            if (filteredTasks.length === 0) {
+                container.innerHTML = '';
+                container.appendChild(emptyState);
+                return;
+            }
+
+            const tasksHTML = filteredTasks.map((task, index) => `
+                <div class="task-item ${task.completed ? 'completed' : ''}" 
+                     draggable="true"
+                     ondragstart="dragStart(${index})"
+                     ondragover="dragOver(event)"
+                     ondrop="drop(${index})"
+                     ondragenter="dragEnter(event)"
+                     ondragleave="dragLeave(event)">
+                    <div class="task-checkbox ${task.completed ? 'checked' : ''}" 
+                         onclick="toggleTask(${task.id})">
+                        ${task.completed ? '✓' : ''}
+                    </div>
+                    <div class="task-content">
+                        <div class="task-title">${task.title}</div>
+                        <div class="task-meta">
+                            <span class="task-category-badge" style="background: ${getCategoryColor(task.category)}">
+                                ${task.category}
+                            </span>
+                            <span>${new Date(task.createdAt).toLocaleDateString()}</span>
+                        </div>
+                    </div>
+                    <div class="task-actions">
+                        <button class="task-btn" onclick="deleteTask(${task.id})">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = tasksHTML;
+        }
+
+        function getCategoryColor(category) {
+            const colors = {
+                personal: '#bee3f8',
+                work: '#fed7d7',
+                shopping: '#c6f6d5',
+                health: '#faf089'
+            };
+            return colors[category] || '#e2e8f0';
+        }
+
+        function updateStats() {
+            document.getElementById('totalTasks').textContent = tasks.length;
+            document.getElementById('activeTasks').textContent = tasks.filter(t => !t.completed).length;
+            document.getElementById('completedTasks').textContent = tasks.filter(t => t.completed).length;
+        }
+
+        function saveTasks() {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        // Drag and Drop functionality
+        function dragStart(index) {
+            dragStartIndex = index;
+            setTimeout(() => {
+                event.target.classList.add('dragging');
+            }, 0);
+        }
+
+        function dragOver(e) {
+            e.preventDefault();
+        }
+
+        function dragEnter(e) {
+            e.preventDefault();
+            e.target.classList.add('drag-over');
+        }
+
+        function dragLeave(e) {
+            e.target.classList.remove('drag-over');
+        }
+
+        function drop(dropIndex) {
+            const dragEndIndex = dropIndex;
+            if (dragStartIndex === dragEndIndex) return;
+
+            const draggedTask = tasks[dragStartIndex];
+            tasks.splice(dragStartIndex, 1);
+            tasks.splice(dragEndIndex, 0, draggedTask);
+
+            saveTasks();
+            renderTasks();
+
+            document.querySelectorAll('.task-item').forEach(item => {
+                item.classList.remove('dragging', 'drag-over');
+            });
+        }
+
+        // Initialize on load
+        window.onload = init;
+    </script>
+</body>
+</html>

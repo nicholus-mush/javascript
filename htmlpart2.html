@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn HTML - Tables, Forms & Semantic HTML</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #48bb78 0%, #2f855a 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 968px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .theory-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .practice-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #2f855a;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #48bb78;
+        }
+
+        h3 {
+            color: #48bb78;
+            margin: 25px 0 15px 0;
+        }
+
+        h4 {
+            color: #2d3748;
+            margin: 20px 0 10px 0;
+        }
+
+        .chapter {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .chapter:last-child {
+            border-bottom: none;
+        }
+
+        .html-tag {
+            display: inline-block;
+            background: #2f855a;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 0 2px;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-left: 4px solid #48bb78;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .example {
+            background: #f0fff4;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #2f855a;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .practice-area {
+            margin-top: 25px;
+        }
+
+        .editor-container {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .editor-header {
+            background: #2d3748;
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        textarea {
+            width: 100%;
+            height: 250px;
+            padding: 15px;
+            border: none;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+            font-size: 14px;
+            background: #f8f9fa;
+        }
+
+        button {
+            background: linear-gradient(135deg, #48bb78 0%, #2f855a 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button.secondary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .preview {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            min-height: 300px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 25px;
+            opacity: 0.9;
+        }
+
+        /* Table Styles for Examples */
+        .table-demo {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .table-demo th, .table-demo td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .table-demo th {
+            background-color: #48bb78;
+            color: white;
+        }
+
+        .table-demo tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        /* Form Styles for Examples */
+        .form-demo {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .form-demo input, .form-demo select, .form-demo textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-demo label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-demo fieldset {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .form-demo legend {
+            font-weight: bold;
+            padding: 0 10px;
+        }
+
+        /* Semantic Layout Example */
+        .semantic-layout {
+            border: 2px solid #48bb78;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .semantic-layout header {
+            background: #48bb78;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .semantic-layout nav {
+            background: #2f855a;
+            padding: 10px;
+        }
+
+        .semantic-layout nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .semantic-layout nav a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .semantic-layout main {
+            padding: 20px;
+            min-height: 200px;
+        }
+
+        .semantic-layout aside {
+            background: #e2e8f0;
+            padding: 15px;
+            margin: 10px;
+            border-radius: 4px;
+        }
+
+        .semantic-layout footer {
+            background: #2d3748;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background: #e2e8f0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .tab-button.active {
+            background: #48bb78;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>HTML Tables, Forms & Semantic HTML</h1>
+            <p class="subtitle">Learn to create structured data, interactive forms, and accessible web pages</p>
+        </header>
+
+        <div class="content-grid">
+            <section class="theory-section">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="tables">Tables</button>
+                    <button class="tab-button" data-tab="forms">Forms</button>
+                    <button class="tab-button" data-tab="semantic">Semantic HTML</button>
+                </div>
+
+                <div id="tables" class="chapter tab-content active">
+                    <h2>HTML Tables</h2>
+                    <p>Tables are used to display tabular data in rows and columns.</p>
+
+                    <h3>Basic Table Structure</h3>
+                    <div class="code-block">
+&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Header 1&lt;/th&gt;
+        &lt;th&gt;Header 2&lt;/th&gt;
+        &lt;th&gt;Header 3&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Row 1, Cell 1&lt;/td&gt;
+        &lt;td&gt;Row 1, Cell 2&lt;/td&gt;
+        &lt;td&gt;Row 1, Cell 3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Row 2, Cell 1&lt;/td&gt;
+        &lt;td&gt;Row 2, Cell 2&lt;/td&gt;
+        &lt;td&gt;Row 2, Cell 3&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+                    </div>
+
+                    <h4>Result:</h4>
+                    <table class="table-demo">
+                        <tr>
+                            <th>Header 1</th>
+                            <th>Header 2</th>
+                            <th>Header 3</th>
+                        </tr>
+                        <tr>
+                            <td>Row 1, Cell 1</td>
+                            <td>Row 1, Cell 2</td>
+                            <td>Row 1, Cell 3</td>
+                        </tr>
+                        <tr>
+                            <td>Row 2, Cell 1</td>
+                            <td>Row 2, Cell 2</td>
+                            <td>Row 2, Cell 3</td>
+                        </tr>
+                    </table>
+
+                    <h3>Advanced Table Features</h3>
+                    <div class="code-block">
+&lt;table&gt;
+    &lt;caption&gt;Employee Information&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope="col"&gt;Name&lt;/th&gt;
+            &lt;th scope="col"&gt;Department&lt;/th&gt;
+            &lt;th scope="col"&gt;Salary&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;John Doe&lt;/td&gt;
+            &lt;td&gt;Engineering&lt;/td&gt;
+            &lt;td&gt;$75,000&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Jane Smith&lt;/td&gt;
+            &lt;td&gt;Marketing&lt;/td&gt;
+            &lt;td&gt;$65,000&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tfoot&gt;
+        &lt;tr&gt;
+            &lt;td colspan="2"&gt;Total&lt;/td&gt;
+            &lt;td&gt;$140,000&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;
+                    </div>
+
+                    <div class="note">
+                        <strong>Best Practice:</strong> Use <span class="html-tag">thead</span>, <span class="html-tag">tbody</span>, and <span class="html-tag">tfoot</span> for better structure and accessibility.
+                    </div>
+                </div>
+
+                <div id="forms" class="chapter tab-content">
+                    <h2>HTML Forms</h2>
+                    <p>Forms allow users to input data and interact with your website.</p>
+
+                    <h3>Basic Form Structure</h3>
+                    <div class="code-block">
+&lt;form action="/submit" method="POST"&gt;
+    &lt;label for="name"&gt;Name:&lt;/label&gt;
+    &lt;input type="text" id="name" name="name" required&gt;
+
+    &lt;label for="email"&gt;Email:&lt;/label&gt;
+    &lt;input type="email" id="email" name="email" required&gt;
+
+    &lt;label for="password"&gt;Password:&lt;/label&gt;
+    &lt;input type="password" id="password" name="password" required&gt;
+
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+                    </div>
+
+                    <h3>Form Input Types</h3>
+                    <div class="code-block">
+&lt;!-- Text Input --&gt;
+&lt;input type="text" placeholder="Enter text"&gt;
+
+&lt;!-- Email Input --&gt;
+&lt;input type="email" placeholder="Enter email"&gt;
+
+&lt;!-- Password Input --&gt;
+&lt;input type="password" placeholder="Enter password"&gt;
+
+&lt;!-- Number Input --&gt;
+&lt;input type="number" min="1" max="100"&gt;
+
+&lt;!-- Date Input --&gt;
+&lt;input type="date"&gt;
+
+&lt;!-- Checkbox --&gt;
+&lt;input type="checkbox" id="subscribe"&gt;
+&lt;label for="subscribe"&gt;Subscribe to newsletter&lt;/label&gt;
+
+&lt;!-- Radio Buttons --&gt;
+&lt;input type="radio" id="male" name="gender"&gt;
+&lt;label for="male"&gt;Male&lt;/label&gt;
+&lt;input type="radio" id="female" name="gender"&gt;
+&lt;label for="female"&gt;Female&lt;/label&gt;
+
+&lt;!-- Select Dropdown --&gt;
+&lt;select&gt;
+    &lt;option value=""&gt;Select option&lt;/option&gt;
+    &lt;option value="1"&gt;Option 1&lt;/option&gt;
+    &lt;option value="2"&gt;Option 2&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- Textarea --&gt;
+&lt;textarea rows="4" placeholder="Enter message"&gt;&lt;/textarea&gt;
+                    </div>
+
+                    <h3>Complete Form Example</h3>
+                    <div class="form-demo">
+                        <form>
+                            <fieldset>
+                                <legend>Personal Information</legend>
+                                <label for="fullname">Full Name:</label>
+                                <input type="text" id="fullname" name="fullname" placeholder="Enter your full name">
+
+                                <label for="user-email">Email:</label>
+                                <input type="email" id="user-email" name="email" placeholder="Enter your email">
+
+                                <label for="user-age">Age:</label>
+                                <input type="number" id="user-age" name="age" min="18" max="100">
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Preferences</legend>
+                                <label>Interests:</label><br>
+                                <input type="checkbox" id="tech" name="interests" value="tech">
+                                <label for="tech">Technology</label><br>
+                                <input type="checkbox" id="sports" name="interests" value="sports">
+                                <label for="sports">Sports</label><br>
+                                <input type="checkbox" id="music" name="interests" value="music">
+                                <label for="music">Music</label>
+
+                                <label>Newsletter:</label><br>
+                                <input type="radio" id="subscribe-yes" name="newsletter" value="yes">
+                                <label for="subscribe-yes">Yes, please</label><br>
+                                <input type="radio" id="subscribe-no" name="newsletter" value="no">
+                                <label for="subscribe-no">No, thanks</label>
+                            </fieldset>
+
+                            <label for="country">Country:</label>
+                            <select id="country" name="country">
+                                <option value="">Select your country</option>
+                                <option value="us">United States</option>
+                                <option value="ca">Canada</option>
+                                <option value="uk">United Kingdom</option>
+                            </select>
+
+                            <label for="message">Message:</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Enter your message"></textarea>
+
+                            <button type="submit">Submit Form</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="semantic" class="chapter tab-content">
+                    <h2>Semantic HTML</h2>
+                    <p>Semantic HTML uses meaningful tags that clearly describe their purpose.</p>
+
+                    <h3>Why Use Semantic HTML?</h3>
+                    <ul>
+                        <li>Better accessibility for screen readers</li>
+                        <li>Improved SEO</li>
+                        <li>Easier to maintain and understand</li>
+                        <li>Better structure for CSS styling</li>
+                    </ul>
+
+                    <h3>Common Semantic Tags</h3>
+                    <div class="code-block">
+&lt;header&gt;
+    &lt;h1&gt;Website Header&lt;/h1&gt;
+    &lt;nav&gt;
+        &lt;a href="/"&gt;Home&lt;/a&gt;
+        &lt;a href="/about"&gt;About&lt;/a&gt;
+        &lt;a href="/contact"&gt;Contact&lt;/a&gt;
+    &lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+    &lt;article&gt;
+        &lt;h2&gt;Article Title&lt;/h2&gt;
+        &lt;p&gt;Article content...&lt;/p&gt;
+        &lt;section&gt;
+            &lt;h3&gt;Section Title&lt;/h3&gt;
+            &lt;p&gt;Section content...&lt;/p&gt;
+        &lt;/section&gt;
+    &lt;/article&gt;
+
+    &lt;aside&gt;
+        &lt;h3&gt;Related Links&lt;/h3&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Link 1&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Link 2&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/aside&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;
+    &lt;p&gt;&copy; 2023 My Website&lt;/p&gt;
+&lt;/footer&gt;
+                    </div>
+
+                    <h4>Semantic Layout Example:</h4>
+                    <div class="semantic-layout">
+                        <header>
+                            <h1>My Website</h1>
+                        </header>
+                        <nav>
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">Services</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </nav>
+                        <main>
+                            <article>
+                                <h2>Welcome to Our Site</h2>
+                                <p>This is the main content area.</p>
+                                <section>
+                                    <h3>Latest News</h3>
+                                    <p>Check out our latest updates!</p>
+                                </section>
+                            </article>
+                            <aside>
+                                <h3>Sidebar</h3>
+                                <p>Additional information goes here.</p>
+                            </aside>
+                        </main>
+                        <footer>
+                            <p>&copy; 2023 My Website. All rights reserved.</p>
+                        </footer>
+                    </div>
+
+                    <div class="note">
+                        <strong>Remember:</strong> Semantic HTML makes your code more meaningful to browsers, search engines, and assistive technologies.
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button id="prev-chapter" class="secondary">← Previous: HTML Basics</button>
+                    <button id="next-chapter">Next: CSS Styling →</button>
+                </div>
+            </section>
+
+            <section class="practice-section">
+                <h2>Practice Area</h2>
+                <p>Create tables, forms, and semantic layouts in the editor below!</p>
+                
+                <div class="practice-area">
+                    <div class="editor-container">
+                        <div class="editor-header">
+                            <span>HTML Editor</span>
+                            <span>Try tables, forms, and semantic HTML!</span>
+                        </div>
+                        <textarea id="html-editor">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Practice Tables & Forms&lt;/title&gt;
+    &lt;style&gt;
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #48bb78; color: white; }
+        form { max-width: 500px; margin: 20px 0; }
+        label { display: block; margin: 10px 0 5px; }
+        input, select, textarea { width: 100%; padding: 8px; margin-bottom: 10px; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Student Information&lt;/h1&gt;
+    
+    &lt;table&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Name&lt;/th&gt;
+                &lt;th&gt;Age&lt;/th&gt;
+                &lt;th&gt;Grade&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td&gt;Alice Johnson&lt;/td&gt;
+                &lt;td&gt;16&lt;/td&gt;
+                &lt;td&gt;A&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;Bob Smith&lt;/td&gt;
+                &lt;td&gt;17&lt;/td&gt;
+                &lt;td&gt;B+&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;h2&gt;Add New Student&lt;/h2&gt;
+    &lt;form&gt;
+        &lt;label for="student-name"&gt;Name:&lt;/label&gt;
+        &lt;input type="text" id="student-name" name="name" required&gt;
+
+        &lt;label for="student-age"&gt;Age:&lt;/label&gt;
+        &lt;input type="number" id="student-age" name="age" min="10" max="20"&gt;
+
+        &lt;label for="student-grade"&gt;Grade:&lt;/label&gt;
+        &lt;select id="student-grade" name="grade"&gt;
+            &lt;option value="A"&gt;A&lt;/option&gt;
+            &lt;option value="B"&gt;B&lt;/option&gt;
+            &lt;option value="C"&gt;C&lt;/option&gt;
+        &lt;/select&gt;
+
+        &lt;button type="submit"&gt;Add Student&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
+                    </div>
+                    
+                    <button id="run-btn">Run Code</button>
+                    <button id="reset-btn" class="secondary">Reset to Example</button>
+                    
+                    <h3>Live Preview:</h3>
+                    <div class="preview" id="preview">
+                        <!-- Preview will be rendered here -->
+                    </div>
+                </div>
+
+                <div class="example">
+                    <h3>Practice Exercises:</h3>
+                    <ul>
+                        <li>Create a timetable for your weekly classes</li>
+                        <li>Build a registration form with validation</li>
+                        <li>Design a semantic blog layout</li>
+                        <li>Make a product comparison table</li>
+                        <li>Create a multi-step form</li>
+                    </ul>
+                </div>
+
+                <div class="warning">
+                    <strong>Accessibility Tip:</strong> Always use proper labels for form elements and semantic tags for better screen reader support.
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>HTML Tutorial - Part 2 &copy; 2023 | Master tables, forms, and semantic HTML!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons and content
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Run code functionality
+        document.getElementById('run-btn').addEventListener('click', function() {
+            const htmlCode = document.getElementById('html-editor').value;
+            const preview = document.getElementById('preview');
+            
+            // Clear previous content
+            preview.innerHTML = '';
+            
+            // Create iframe to render HTML safely
+            const iframe = document.createElement('iframe');
+            iframe.style.width = '100%';
+            iframe.style.height = '400px';
+            iframe.style.border = 'none';
+            iframe.style.borderRadius = '4px';
+            
+            preview.appendChild(iframe);
+            
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(htmlCode);
+            iframeDoc.close();
+        });
+
+        // Reset to example code
+        document.getElementById('reset-btn').addEventListener('click', function() {
+            document.getElementById('html-editor').value = `<!DOCTYPE html>
+<html>
+<head>
+    <title>Practice Tables & Forms</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #48bb78; color: white; }
+        form { max-width: 500px; margin: 20px 0; }
+        label { display: block; margin: 10px 0 5px; }
+        input, select, textarea { width: 100%; padding: 8px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Student Information</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Grade</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Alice Johnson</td>
+                <td>16</td>
+                <td>A</td>
+            </tr>
+            <tr>
+                <td>Bob Smith</td>
+                <td>17</td>
+                <td>B+</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Add New Student</h2>
+    <form>
+        <label for="student-name">Name:</label>
+        <input type="text" id="student-name" name="name" required>
+
+        <label for="student-age">Age:</label>
+        <input type="number" id="student-age" name="age" min="10" max="20">
+
+        <label for="student-grade">Grade:</label>
+        <select id="student-grade" name="grade">
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+        </select>
+
+        <button type="submit">Add Student</button>
+    </form>
+</body>
+</html>`;
+            
+            // Trigger the run button to update preview
+            document.getElementById('run-btn').click();
+        });
+
+        // Navigation buttons
+        document.getElementById('next-chapter').addEventListener('click', function() {
+            alert('Next part: CSS Styling and Layout!');
+        });
+
+        document.getElementById('prev-chapter').addEventListener('click', function() {
+            alert('Returning to HTML Basics...');
+        });
+
+        // Initialize the preview on page load
+        window.addEventListener('load', function() {
+            document.getElementById('run-btn').click();
+        });
+    </script>
+</body>
+</html>

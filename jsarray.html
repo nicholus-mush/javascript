@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn JavaScript - Arrays & Objects</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #48bb78 0%, #2f855a 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 968px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .theory-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .practice-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #2f855a;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #48bb78;
+        }
+
+        h3 {
+            color: #48bb78;
+            margin: 25px 0 15px 0;
+        }
+
+        h4 {
+            color: #2d3748;
+            margin: 20px 0 10px 0;
+        }
+
+        .chapter {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .chapter:last-child {
+            border-bottom: none;
+        }
+
+        .js-keyword {
+            display: inline-block;
+            background: #2f855a;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 0 2px;
+            font-size: 0.9em;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            overflow-x: auto;
+            border-left: 4px solid #48bb78;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .example {
+            background: #f0fff4;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #2f855a;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .practice-area {
+            margin-top: 25px;
+        }
+
+        .editor-container {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .editor-header {
+            background: #2d3748;
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 15px;
+            border: none;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            resize: vertical;
+            font-size: 14px;
+            background: #f8f9fa;
+        }
+
+        button {
+            background: linear-gradient(135deg, #48bb78 0%, #2f855a 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button.secondary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .preview {
+            margin-top: 20px;
+            padding: 20px;
+            background: #1a202c;
+            color: #e2e8f0;
+            border-radius: 8px;
+            min-height: 200px;
+            border-left: 4px solid #48bb78;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 25px;
+            opacity: 0.9;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background: #e2e8f0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .tab-button.active {
+            background: #48bb78;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Demo Styles */
+        .demo-area {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .demo-controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .demo-controls button {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        .interactive-demo {
+            background: #edf2f7;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .method-card {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #48bb78;
+            text-align: center;
+        }
+
+        .array-visual {
+            display: flex;
+            gap: 5px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .array-item {
+            background: #48bb78;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .object-visual {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            margin: 10px 0;
+        }
+
+        .property {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .property:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JavaScript Arrays & Objects</h1>
+            <p class="subtitle">Master data structures and manipulation techniques</p>
+        </header>
+
+        <div class="content-grid">
+            <section class="theory-section">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="arrays">Arrays</button>
+                    <button class="tab-button" data-tab="array-methods">Array Methods</button>
+                    <button class="tab-button" data-tab="objects">Objects</button>
+                    <button class="tab-button" data-tab="object-methods">Object Methods</button>
+                </div>
+
+                <div id="arrays" class="chapter tab-content active">
+                    <h2>JavaScript Arrays</h2>
+                    <p>Arrays are used to store multiple values in a single variable.</p>
+
+                    <h3>Creating Arrays</h3>
+                    <div class="code-block">
+// Array literal (most common)
+let fruits = ["apple", "banana", "orange"];
+
+// Array constructor
+let numbers = new Array(1, 2, 3, 4, 5);
+
+// Empty array
+let emptyArray = [];
+
+// Array with mixed data types
+let mixed = ["hello", 42, true, null, {name: "John"}];
+                    </div>
+
+                    <h3>Accessing Array Elements</h3>
+                    <div class="code-block">
+let colors = ["red", "green", "blue", "yellow"];
+
+// Access by index (0-based)
+console.log(colors[0]); // "red"
+console.log(colors[2]); // "blue"
+
+// Get array length
+console.log(colors.length); // 4
+
+// Last element
+console.log(colors[colors.length - 1]); // "yellow"
+
+// Modify elements
+colors[1] = "purple";
+console.log(colors); // ["red", "purple", "blue", "yellow"]
+                    </div>
+
+                    <div class="demo-area">
+                        <h4>Array Visualization</h4>
+                        <div class="array-visual" id="arrayVisual">
+                            <div class="array-item">"apple"</div>
+                            <div class="array-item">"banana"</div>
+                            <div class="array-item">"orange"</div>
+                            <div class="array-item">"grape"</div>
+                        </div>
+                        <div class="demo-controls">
+                            <button onclick="demoArrayAccess(0)">Index 0</button>
+                            <button onclick="demoArrayAccess(2)">Index 2</button>
+                            <button onclick="demoArrayAccess('length')">Length</button>
+                            <button onclick="demoArrayAccess('last')">Last Element</button>
+                        </div>
+                        <div id="arrayOutput" class="preview" style="min-height: 80px;">
+                            Click buttons to access array elements
+                        </div>
+                    </div>
+
+                    <h3>Basic Array Operations</h3>
+                    <div class="code-block">
+let scores = [85, 92, 78, 96];
+
+// Loop through array
+for (let i = 0; i < scores.length; i++) {
+    console.log(`Score ${i + 1}: ${scores[i]}`);
+}
+
+// For...of loop
+for (let score of scores) {
+    console.log(score);
+}
+
+// Check if array includes value
+console.log(scores.includes(92)); // true
+console.log(scores.includes(60)); // false
+
+// Find index of element
+console.log(scores.indexOf(78)); // 2
+console.log(scores.indexOf(100)); // -1 (not found)
+                    </div>
+                </div>
+
+                <div id="array-methods" class="chapter tab-content">
+                    <h2>Array Methods</h2>
+                    <p>Arrays have built-in methods for common operations.</p>
+
+                    <h3>Adding/Removing Elements</h3>
+                    <div class="code-block">
+let fruits = ["apple", "banana"];
+
+// Add to end
+fruits.push("orange"); // ["apple", "banana", "orange"]
+
+// Remove from end
+let last = fruits.pop(); // "orange", fruits = ["apple", "banana"]
+
+// Add to beginning
+fruits.unshift("grape"); // ["grape", "apple", "banana"]
+
+// Remove from beginning
+let first = fruits.shift(); // "grape", fruits = ["apple", "banana"]
+
+// Add/remove at specific position
+fruits.splice(1, 0, "mango"); // ["apple", "mango", "banana"]
+fruits.splice(1, 1); // ["apple", "banana"]
+                    </div>
+
+                    <h3>Transformation Methods</h3>
+                    <div class="code-block">
+let numbers = [1, 2, 3, 4, 5];
+
+// map - transform each element
+let doubled = numbers.map(num => num * 2); // [2, 4, 6, 8, 10]
+
+// filter - keep elements that pass test
+let even = numbers.filter(num => num % 2 === 0); // [2, 4]
+
+// reduce - reduce to single value
+let sum = numbers.reduce((total, num) => total + num, 0); // 15
+
+// find - find first matching element
+let firstEven = numbers.find(num => num % 2 === 0); // 2
+                    </div>
+
+                    <div class="method-grid">
+                        <div class="method-card">
+                            <h4>map()</h4>
+                            <p>Transform each element</p>
+                        </div>
+                        <div class="method-card">
+                            <h4>filter()</h4>
+                            <p>Filter elements</p>
+                        </div>
+                        <div class="method-card">
+                            <h4>reduce()</h4>
+                            <p>Reduce to single value</p>
+                        </div>
+                        <div class="method-card">
+                            <h4>find()</h4>
+                            <p>Find element</p>
+                        </div>
+                    </div>
+
+                    <h3>Other Useful Methods</h3>
+                    <div class="code-block">
+let arr = [1, 2, 3, 4, 5];
+
+// slice - copy portion of array
+let slice = arr.slice(1, 4); // [2, 3, 4]
+
+// concat - combine arrays
+let combined = arr.concat([6, 7, 8]); // [1, 2, 3, 4, 5, 6, 7, 8]
+
+// sort - sort elements
+let unsorted = [3, 1, 4, 1, 5];
+let sorted = unsorted.sort(); // [1, 1, 3, 4, 5]
+
+// reverse - reverse order
+let reversed = arr.reverse(); // [5, 4, 3, 2, 1]
+
+// join - create string from array
+let str = arr.join(" - "); // "1 - 2 - 3 - 4 - 5"
+                    </div>
+
+                    <div class="interactive-demo">
+                        <h4>Array Methods Demo</h4>
+                        <div class="demo-controls">
+                            <button onclick="demoArrayMethod('map')">Map</button>
+                            <button onclick="demoArrayMethod('filter')">Filter</button>
+                            <button onclick="demoArrayMethod('reduce')">Reduce</button>
+                            <button onclick="demoArrayMethod('find')">Find</button>
+                        </div>
+                        <div id="arrayMethodOutput" class="preview" style="min-height: 120px;">
+                            Click buttons to see array methods in action
+                        </div>
+                    </div>
+                </div>
+
+                <div id="objects" class="chapter tab-content">
+                    <h2>JavaScript Objects</h2>
+                    <p>Objects store collections of key-value pairs.</p>
+
+                    <h3>Creating Objects</h3>
+                    <div class="code-block">
+// Object literal (most common)
+let person = {
+    firstName: "John",
+    lastName: "Doe",
+    age: 30,
+    isStudent: false
+};
+
+// Object constructor
+let car = new Object();
+car.make = "Toyota";
+car.model = "Camry";
+car.year = 2020;
+
+// Nested objects
+let company = {
+    name: "Tech Corp",
+    employees: 100,
+    address: {
+        street: "123 Main St",
+        city: "Boston",
+        country: "USA"
+    }
+};
+                    </div>
+
+                    <h3>Accessing Object Properties</h3>
+                    <div class="code-block">
+let book = {
+    title: "JavaScript Guide",
+    author: "Jane Smith",
+    pages: 350,
+    isAvailable: true
+};
+
+// Dot notation
+console.log(book.title); // "JavaScript Guide"
+console.log(book.pages); // 350
+
+// Bracket notation
+console.log(book["author"]); // "Jane Smith"
+let property = "isAvailable";
+console.log(book[property]); // true
+
+// Modifying properties
+book.pages = 400;
+book["isAvailable"] = false;
+
+// Adding new properties
+book.publisher = "Tech Books";
+book["language"] = "English";
+                    </div>
+
+                    <div class="demo-area">
+                        <h4>Object Visualization</h4>
+                        <div class="object-visual">
+                            <div class="property">
+                                <span>title:</span>
+                                <span>"JavaScript Guide"</span>
+                            </div>
+                            <div class="property">
+                                <span>author:</span>
+                                <span>"Jane Smith"</span>
+                            </div>
+                            <div class="property">
+                                <span>pages:</span>
+                                <span>350</span>
+                            </div>
+                            <div class="property">
+                                <span>isAvailable:</span>
+                                <span>true</span>
+                            </div>
+                        </div>
+                        <div class="demo-controls">
+                            <button onclick="demoObjectAccess('dot')">Dot Notation</button>
+                            <button onclick="demoObjectAccess('bracket')">Bracket Notation</button>
+                            <button onclick="demoObjectAccess('modify')">Modify Property</button>
+                            <button onclick="demoObjectAccess('add')">Add Property</button>
+                        </div>
+                        <div id="objectOutput" class="preview" style="min-height: 100px;">
+                            Click buttons to access object properties
+                        </div>
+                    </div>
+
+                    <h3>Object Methods</h3>
+                    <div class="code-block">
+let calculator = {
+    // Properties
+    brand: "Scientific",
+    color: "black",
+    
+    // Methods
+    add: function(a, b) {
+        return a + b;
+    },
+    
+    multiply(a, b) {  // Shorthand syntax
+        return a * b;
+    },
+    
+    displayInfo() {
+        return `${this.brand} Calculator (${this.color})`;
+    }
+};
+
+// Using methods
+console.log(calculator.add(5, 3)); // 8
+console.log(calculator.multiply(4, 5)); // 20
+console.log(calculator.displayInfo()); // "Scientific Calculator (black)"
+                    </div>
+                </div>
+
+                <div id="object-methods" class="chapter tab-content">
+                    <h2>Object Methods & Destructuring</h2>
+                    <p>Modern JavaScript provides powerful ways to work with objects.</p>
+
+                    <h3>Object Static Methods</h3>
+                    <div class="code-block">
+let user = {
+    name: "Alice",
+    age: 25,
+    email: "alice@example.com",
+    role: "admin"
+};
+
+// Object.keys() - get all keys
+let keys = Object.keys(user); // ["name", "age", "email", "role"]
+
+// Object.values() - get all values
+let values = Object.values(user); // ["Alice", 25, "alice@example.com", "admin"]
+
+// Object.entries() - get key-value pairs
+let entries = Object.entries(user);
+// [["name", "Alice"], ["age", 25], ["email", "alice@example.com"], ["role", "admin"]]
+
+// Object.assign() - copy properties
+let userCopy = Object.assign({}, user);
+
+// Object.freeze() - make object immutable
+Object.freeze(user);
+// user.age = 30; // This won't work (in strict mode)
+                    </div>
+
+                    <h3>Object Destructuring</h3>
+                    <div class="code-block">
+let person = {
+    firstName: "John",
+    lastName: "Doe",
+    age: 30,
+    address: {
+        city: "New York",
+        country: "USA"
+    }
+};
+
+// Basic destructuring
+let { firstName, lastName, age } = person;
+console.log(firstName); // "John"
+console.log(lastName);  // "Doe"
+
+// Renaming variables
+let { firstName: fName, lastName: lName } = person;
+
+// Default values
+let { firstName, country = "Unknown" } = person;
+
+// Nested destructuring
+let { address: { city, country } } = person;
+console.log(city); // "New York"
+
+// Function parameter destructuring
+function displayPerson({ firstName, lastName, age }) {
+    return `${firstName} ${lastName} is ${age} years old`;
+}
+                    </div>
+
+                    <div class="interactive-demo">
+                        <h4>Object Methods Demo</h4>
+                        <div class="demo-controls">
+                            <button onclick="demoObjectMethod('keys')">Object.keys()</button>
+                            <button onclick="demoObjectMethod('values')">Object.values()</button>
+                            <button onclick="demoObjectMethod('entries')">Object.entries()</button>
+                            <button onclick="demoObjectMethod('destructure')">Destructuring</button>
+                        </div>
+                        <div id="objectMethodOutput" class="preview" style="min-height: 120px;">
+                            Click buttons to see object methods in action
+                        </div>
+                    </div>
+
+                    <h3>Spread Operator with Objects</h3>
+                    <div class="code-block">
+let obj1 = { a: 1, b: 2 };
+let obj2 = { c: 3, d: 4 };
+
+// Copy object
+let copy = { ...obj1 }; // { a: 1, b: 2 }
+
+// Merge objects
+let merged = { ...obj1, ...obj2 }; // { a: 1, b: 2, c: 3, d: 4 }
+
+// Override properties
+let updated = { ...obj1, b: 20 }; // { a: 1, b: 20 }
+
+// Add new properties
+let extended = { ...obj1, e: 5, f: 6 }; // { a: 1, b: 2, e: 5, f: 6 }
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button id="prev-chapter" class="secondary">← Previous: JS Fundamentals</button>
+                    <button id="next-chapter">Next: DOM Manipulation →</button>
+                </div>
+            </section>
+
+            <section class="practice-section">
+                <h2>Data Structures Playground</h2>
+                <p>Practice working with arrays and objects in real-time!</p>
+                
+                <div class="practice-area">
+                    <div class="editor-container">
+                        <div class="editor-header">
+                            <span>JavaScript Editor</span>
+                            <span>Work with arrays and objects</span>
+                        </div>
+                        <textarea id="js-editor">// Array and Object Practice Area
+
+// Example 1: Basic Array Operations
+const fruits = ["apple", "banana", "orange", "grape"];
+console.log("Original fruits array:", fruits);
+
+// Add and remove elements
+fruits.push("mango");
+console.log("After push:", fruits);
+
+const removedFruit = fruits.pop();
+console.log("Removed fruit:", removedFruit);
+console.log("After pop:", fruits);
+
+// Example 2: Array Methods
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// Transform with map
+const doubled = numbers.map(num => num * 2);
+console.log("Doubled numbers:", doubled);
+
+// Filter even numbers
+const evenNumbers = numbers.filter(num => num % 2 === 0);
+console.log("Even numbers:", evenNumbers);
+
+// Calculate sum with reduce
+const sum = numbers.reduce((total, num) => total + num, 0);
+console.log("Sum of numbers:", sum);
+
+// Example 3: Object Basics
+const person = {
+    firstName: "John",
+    lastName: "Doe",
+    age: 30,
+    hobbies: ["reading", "coding", "gaming"],
+    address: {
+        street: "123 Main St",
+        city: "Boston",
+        country: "USA"
+    },
+    getFullName: function() {
+        return this.firstName + " " + this.lastName;
+    }
+};
+
+console.log("Person object:", person);
+console.log("Full name:", person.getFullName());
+console.log("City:", person.address.city);
+
+// Example 4: Object Methods and Destructuring
+const product = {
+    id: 1,
+    name: "Laptop",
+    price: 999.99,
+    category: "Electronics",
+    inStock: true
+};
+
+// Object.keys()
+const keys = Object.keys(product);
+console.log("Product keys:", keys);
+
+// Object.values()
+const values = Object.values(product);
+console.log("Product values:", values);
+
+// Destructuring
+const { name, price, category } = product;
+console.log(`Product: ${name}, Price: $${price}, Category: ${category}`);
+
+// Example 5: Combining Arrays and Objects
+const students = [
+    { name: "Alice", grade: 95, subject: "Math" },
+    { name: "Bob", grade: 87, subject: "Science" },
+    { name: "Charlie", grade: 92, subject: "History" },
+    { name: "Diana", grade: 78, subject: "Math" }
+];
+
+// Filter students with grade >= 90
+const topStudents = students.filter(student => student.grade >= 90);
+console.log("Top students:", topStudents);
+
+// Calculate average grade
+const averageGrade = students.reduce((sum, student) => sum + student.grade, 0) / students.length;
+console.log("Average grade:", averageGrade.toFixed(2));
+
+// Group by subject using reduce
+const bySubject = students.reduce((groups, student) => {
+    const subject = student.subject;
+    if (!groups[subject]) {
+        groups[subject] = [];
+    }
+    groups[subject].push(student);
+    return groups;
+}, {});
+
+console.log("Students by subject:", bySubject);
+
+// Try your own array and object operations below!
+const myArray = [10, 20, 30];
+console.log("My array:", myArray);
+
+const myObject = { key: "value", number: 42 };
+console.log("My object:", myObject);</textarea>
+                    </div>
+                    
+                    <button id="run-btn">Run Code</button>
+                    <button id="reset-btn" class="secondary">Reset Code</button>
+                    <button id="clear-btn">Clear Output</button>
+                    
+                    <h3>Console Output:</h3>
+                    <div class="preview" id="output">
+// Output will appear here after running your code
+                    </div>
+                </div>
+
+                <div class="example">
+                    <h3>Practice Exercises:</h3>
+                    <ul>
+                        <li>Create a function that finds the maximum number in an array</li>
+                        <li>Build a shopping cart using objects and arrays</li>
+                        <li>Convert an array of objects to a different format using map</li>
+                        <li>Create a function that merges two objects</li>
+                        <li>Implement a simple todo list with array methods</li>
+                    </ul>
+                </div>
+
+                <div class="note">
+                    <strong>Tip:</strong> Use array methods like <span class="js-keyword">map</span>, <span class="js-keyword">filter</span>, and <span class="js-keyword">reduce</span> for cleaner, more readable code compared to traditional loops.
+                </div>
+
+                <div class="warning">
+                    <strong>Remember:</strong> Arrays are reference types! When you assign an array to a new variable, both variables reference the same array. Use spread operator or Array.from() to create copies.
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>JavaScript Arrays & Objects Tutorial - Part 2 &copy; 2023 | Master data manipulation!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Array Access Demo
+        function demoArrayAccess(type) {
+            const output = document.getElementById('arrayOutput');
+            const fruits = ["apple", "banana", "orange", "grape"];
+            let content = '';
+            
+            switch(type) {
+                case 0:
+                    content = `fruits[0] = "${fruits[0]}"`;
+                    break;
+                case 2:
+                    content = `fruits[2] = "${fruits[2]}"`;
+                    break;
+                case 'length':
+                    content = `fruits.length = ${fruits.length}`;
+                    break;
+                case 'last':
+                    content = `fruits[fruits.length - 1] = "${fruits[fruits.length - 1]}"`;
+                    break;
+            }
+            
+            output.textContent = content;
+        }
+
+        // Array Methods Demo
+        function demoArrayMethod(method) {
+            const output = document.getElementById('arrayMethodOutput');
+            const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            let content = '';
+            
+            switch(method) {
+                case 'map':
+                    content = `// Double each number\n`;
+                    content += `const doubled = numbers.map(num => num * 2);\n`;
+                    content += `console.log(doubled); // [${numbers.map(num => num * 2)}]`;
+                    break;
+                    
+                case 'filter':
+                    content = `// Filter even numbers\n`;
+                    content += `const evens = numbers.filter(num => num % 2 === 0);\n`;
+                    content += `console.log(evens); // [${numbers.filter(num => num % 2 === 0)}]`;
+                    break;
+                    
+                case 'reduce':
+                    content = `// Calculate sum\n`;
+                    content += `const sum = numbers.reduce((total, num) => total + num, 0);\n`;
+                    content += `console.log(sum); // ${numbers.reduce((total, num) => total + num, 0)}`;
+                    break;
+                    
+                case 'find':
+                    content = `// Find first number > 5\n`;
+                    content += `const firstLarge = numbers.find(num => num > 5);\n`;
+                    content += `console.log(firstLarge); // ${numbers.find(num => num > 5)}`;
+                    break;
+            }
+            
+            output.textContent = content;
+        }
+
+        // Object Access Demo
+        function demoObjectAccess(type) {
+            const output = document.getElementById('objectOutput');
+            const book = {
+                title: "JavaScript Guide",
+                author: "Jane Smith",
+                pages: 350,
+                isAvailable: true
+            };
+            let content = '';
+            
+            switch(type) {
+                case 'dot':
+                    content = `// Dot notation\n`;
+                    content += `book.title = "${book.title}"\n`;
+                    content += `book.pages = ${book.pages}`;
+                    break;
+                    
+                case 'bracket':
+                    content = `// Bracket notation\n`;
+                    content += `book["author"] = "${book["author"]}"\n`;
+                    content += `book["isAvailable"] = ${book["isAvailable"]}`;
+                    break;
+                    
+                case 'modify':
+                    content = `// Modify property\n`;
+                    content += `book.pages = 400;\n`;
+                    content += `console.log(book.pages); // 400`;
+                    break;
+                    
+                case 'add':
+                    content = `// Add new property\n`;
+                    content += `book.publisher = "Tech Books";\n`;
+                    content += `console.log(book.publisher); // "Tech Books"`;
+                    break;
+            }
+            
+            output.textContent = content;
+        }
+
+        // Object Methods Demo
+        function demoObjectMethod(method) {
+            const output = document.getElementById('objectMethodOutput');
+            const user = {
+                name: "Alice",
+                age: 25,
+                email: "alice@example.com",
+                role: "admin"
+            };
+            let content = '';
+            
+            switch(method) {
+                case 'keys':
+                    content = `// Object.keys()\n`;
+                    content += `const keys = Object.keys(user);\n`;
+                    content += `console.log(keys); // ${JSON.stringify(Object.keys(user))}`;
+                    break;
+                    
+                case 'values':
+                    content = `// Object.values()\n`;
+                    content += `const values = Object.values(user);\n`;
+                    content += `console.log(values); // ${JSON.stringify(Object.values(user))}`;
+                    break;
+                    
+                case 'entries':
+                    content = `// Object.entries()\n`;
+                    content += `const entries = Object.entries(user);\n`;
+                    content += `console.log(entries); // ${JSON.stringify(Object.entries(user))}`;
+                    break;
+                    
+                case 'destructure':
+                    content = `// Destructuring\n`;
+                    content += `const { name, age, email } = user;\n`;
+                    content += `console.log(name);  // "${user.name}"\n`;
+                    content += `console.log(age);   // ${user.age}\n`;
+                    content += `console.log(email); // "${user.email}"`;
+                    break;
+            }
+            
+            output.textContent = content;
+        }
+
+        // Run JavaScript code
+        document.getElementById('run-btn').addEventListener('click', function() {
+            const jsCode = document.getElementById('js-editor').value;
+            const outputElement = document.getElementById('output');
+            
+            // Clear previous output
+            outputElement.innerHTML = '';
+            
+            try {
+                // Capture console.log output
+                const originalLog = console.log;
+                let logOutput = '';
+                
+                console.log = function(...args) {
+                    logOutput += args.map(arg => {
+                        if (typeof arg === 'object') {
+                            return JSON.stringify(arg, null, 2);
+                        }
+                        return String(arg);
+                    }).join(' ') + '\n';
+                    originalLog.apply(console, args);
+                };
+                
+                // Execute the code
+                eval(jsCode);
+                
+                // Restore original console.log
+                console.log = originalLog;
+                
+                // Display the output
+                outputElement.textContent = logOutput || 'Code executed successfully (no output)';
+            } catch (error) {
+                outputElement.innerHTML = `<span style="color: #fc8181;">Error: ${error.message}</span>`;
+            }
+        });
+
+        // Reset to example code
+        document.getElementById('reset-btn').addEventListener('click', function() {
+            document.getElementById('js-editor').value = `// Array and Object Practice Area
+
+// Example 1: Basic Array Operations
+const fruits = ["apple", "banana", "orange", "grape"];
+console.log("Original fruits array:", fruits);
+
+// Add and remove elements
+fruits.push("mango");
+console.log("After push:", fruits);
+
+const removedFruit = fruits.pop();
+console.log("Removed fruit:", removedFruit);
+console.log("After pop:", fruits);
+
+// Example 2: Array Methods
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// Transform with map
+const doubled = numbers.map(num => num * 2);
+console.log("Doubled numbers:", doubled);
+
+// Filter even numbers
+const evenNumbers = numbers.filter(num => num % 2 === 0);
+console.log("Even numbers:", evenNumbers);
+
+// Calculate sum with reduce
+const sum = numbers.reduce((total, num) => total + num, 0);
+console.log("Sum of numbers:", sum);
+
+// Example 3: Object Basics
+const person = {
+    firstName: "John",
+    lastName: "Doe",
+    age: 30,
+    hobbies: ["reading", "coding", "gaming"],
+    address: {
+        street: "123 Main St",
+        city: "Boston",
+        country: "USA"
+    },
+    getFullName: function() {
+        return this.firstName + " " + this.lastName;
+    }
+};
+
+console.log("Person object:", person);
+console.log("Full name:", person.getFullName());
+console.log("City:", person.address.city);
+
+// Example 4: Object Methods and Destructuring
+const product = {
+    id: 1,
+    name: "Laptop",
+    price: 999.99,
+    category: "Electronics",
+    inStock: true
+};
+
+// Object.keys()
+const keys = Object.keys(product);
+console.log("Product keys:", keys);
+
+// Object.values()
+const values = Object.values(product);
+console.log("Product values:", values);
+
+// Destructuring
+const { name, price, category } = product;
+console.log(`Product: ${name}, Price: $${price}, Category: ${category}`);
+
+// Example 5: Combining Arrays and Objects
+const students = [
+    { name: "Alice", grade: 95, subject: "Math" },
+    { name: "Bob", grade: 87, subject: "Science" },
+    { name: "Charlie", grade: 92, subject: "History" },
+    { name: "Diana", grade: 78, subject: "Math" }
+];
+
+// Filter students with grade >= 90
+const topStudents = students.filter(student => student.grade >= 90);
+console.log("Top students:", topStudents);
+
+// Calculate average grade
+const averageGrade = students.reduce((sum, student) => sum + student.grade, 0) / students.length;
+console.log("Average grade:", averageGrade.toFixed(2));
+
+// Group by subject using reduce
+const bySubject = students.reduce((groups, student) => {
+    const subject = student.subject;
+    if (!groups[subject]) {
+        groups[subject] = [];
+    }
+    groups[subject].push(student);
+    return groups;
+}, {});
+
+console.log("Students by subject:", bySubject);
+
+// Try your own array and object operations below!
+const myArray = [10, 20, 30];
+console.log("My array:", myArray);
+
+const myObject = { key: "value", number: 42 };
+console.log("My object:", myObject);`;
+            
+            // Clear output
+            document.getElementById('output').textContent = '// Output will appear here after running your code';
+        });
+
+        // Clear output
+        document.getElementById('clear-btn').addEventListener('click', function() {
+            document.getElementById('output').textContent = '// Output cleared';
+        });
+
+        // Navigation buttons
+        document.getElementById('next-chapter').addEventListener('click', function() {
+            alert('Next part: DOM Manipulation and Events!');
+        });
+
+        document.getElementById('prev-chapter').addEventListener('click', function() {
+            alert('Returning to JavaScript Fundamentals...');
+        });
+
+        // Initialize with example output
+        document.getElementById('output').textContent = `Original fruits array: ["apple","banana","orange","grape"]
+After push: ["apple","banana","orange","grape","mango"]
+Removed fruit: mango
+After pop: ["apple","banana","orange","grape"]
+Doubled numbers: [2,4,6,8,10,12,14,16,18,20]
+Even numbers: [2,4,6,8,10]
+Sum of numbers: 55
+Person object: {
+  "firstName": "John",
+  "lastName": "Doe",
+  "age": 30,
+  "hobbies": [
+    "reading",
+    "coding",
+    "gaming"
+  ],
+  "address": {
+    "street": "123 Main St",
+    "city": "Boston",
+    "country": "USA"
+  }
+}
+Full name: John Doe
+City: Boston
+Product keys: ["id","name","price","category","inStock"]
+Product values: [1,"Laptop",999.99,"Electronics",true]
+Product: Laptop, Price: $999.99, Category: Electronics
+Top students: [
+  {
+    "name": "Alice",
+    "grade": 95,
+    "subject": "Math"
+  },
+  {
+    "name": "Charlie",
+    "grade": 92,
+    "subject": "History"
+  }
+]
+Average grade: 88.00
+Students by subject: {
+  "Math": [
+    {
+      "name": "Alice",
+      "grade": 95,
+      "subject": "Math"
+    },
+    {
+      "name": "Diana",
+      "grade": 78,
+      "subject": "Math"
+    }
+  ],
+  "Science": [
+    {
+      "name": "Bob",
+      "grade": 87,
+      "subject": "Science"
+    }
+  ],
+  "History": [
+    {
+      "name": "Charlie",
+      "grade": 92,
+      "subject": "History"
+    }
+  ]
+}
+My array: [10,20,30]
+My object: {
+  "key": "value",
+  "number": 42
+}`;
+    </script>
+</body>
+</html>

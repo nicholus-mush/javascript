@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Dev Learning Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Web Dev Learning Hub</h1>
+            <p class="subtitle">Master HTML, CSS, JavaScript and build real-world projects</p>
+        </header>
+
+        <div class="dashboard">
+            <div class="sidebar">
+                <div class="user-profile">
+                    <div class="avatar">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h3 class="user-name">Student Developer</h3>
+                    <p class="user-status">Currently learning JavaScript</p>
+                </div>
+
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-book-open"></i>
+                            <span>My Courses</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-tasks"></i>
+                            <span>Assignments</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Progress</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="progress-section">
+                    <h3 class="progress-title">
+                        <span>Learning Progress</span>
+                        <span>65%</span>
+                    </h3>
+                    
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>HTML</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill progress-html"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>CSS</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill progress-css"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>JavaScript</span>
+                            <span>45%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill progress-js"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <!-- HTML Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon icon-html">
+                            <i class="fab fa-html5"></i>
+                        </div>
+                        <h2 class="card-title">HTML Fundamentals</h2>
+                    </div>
+                    <p class="card-description">
+                        Learn the structure of web pages with HTML. Master tags, elements, forms, and semantic markup.
+                    </p>
+                    <ul class="features">
+                        <li>HTML5 Semantic Elements</li>
+                        <li>Forms and Input Types</li>
+                        <li>Accessibility Best Practices</li>
+                        <li>SEO Fundamentals</li>
+                    </ul>
+                    <button class="btn btn-html" onclick="openModal('htmlModal')">Start Learning HTML</button>
+                </div>
+
+                <!-- CSS Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon icon-css">
+                            <i class="fab fa-css3-alt"></i>
+                        </div>
+                        <h2 class="card-title">CSS Styling</h2>
+                    </div>
+                    <p class="card-description">
+                        Make your websites beautiful with CSS. Learn layouts, animations, responsive design and more.
+                    </p>
+                    <ul class="features">
+                        <li>Flexbox and Grid Layouts</li>
+                        <li>CSS Animations & Transitions</li>
+                        <li>Responsive Design Principles</li>
+                        <li>CSS Variables & Custom Properties</li>
+                    </ul>
+                    <button class="btn btn-css" onclick="openModal('cssModal')">Start Learning CSS</button>
+                </div>
+
+                <!-- JavaScript Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon icon-js">
+                            <i class="fab fa-js-square"></i>
+                        </div>
+                        <h2 class="card-title">JavaScript Programming</h2>
+                    </div>
+                    <p class="card-description">
+                        Add interactivity to your websites with JavaScript. Learn DOM manipulation, events, and APIs.
+                    </p>
+                    <ul class="features">
+                        <li>DOM Manipulation</li>
+                        <li>Event Handling</li>
+                        <li>Async Programming & APIs</li>
+                        <li>Modern ES6+ Features</li>
+                    </ul>
+                    <button class="btn btn-js" onclick="openModal('jsModal')">Start Learning JavaScript</button>
+                </div>
+
+                <!-- Projects Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon icon-projects">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h2 class="card-title">Project Dashboard</h2>
+                    </div>
+                    <p class="card-description">
+                        Apply your skills with real-world projects. Build a portfolio while learning practical development.
+                    </p>
+                    <ul class="features">
+                        <li>Task Manager Application</li>
+                        <li>Weather Dashboard</li>
+                        <li>E-commerce Shopping Cart</li>
+                        <li>Portfolio Website</li>
+                    </ul>
+                    <button class="btn btn-projects" onclick="openModal('projectsModal')">View Projects</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number stat-html">12</div>
+                <div class="stat-label">HTML Lessons</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number stat-css">15</div>
+                <div class="stat-label">CSS Lessons</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number stat-js">18</div>
+                <div class="stat-label">JS Lessons</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Web Dev Learning Hub &copy; 2023 | Designed for Student Success</p>
+        </footer>
+    </div>
+
+    <!-- HTML Modal -->
+    <div id="htmlModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <div class="card-icon icon-html">
+                        <i class="fab fa-html5"></i>
+                    </div>
+                    HTML Learning Path
+                </h2>
+                <button class="close-btn" onclick="closeModal('htmlModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="lesson-grid">
+                    <div class="lesson-card">
+                        <div class="lesson-icon icon-html">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="lesson-title">HTML Basics</h3>
+                        <p class="lesson-desc">Learn the fundamental structure of HTML documents and basic tags.</p>
+                        <div class="lesson-meta">
+                            <span><i class="far fa-clock"></i> 45 min</span>
+                            <span class="completed"><i class="fas fa-check"></i> Completed</span>
+                            <a href="htmlpart1.html" class="lesson-link"><i class="fas fa-external-link-alt"></i>start</a>
+                        </div>
+                    </div>
+                    <div class="lesson-card">
+                        <div class="lesson-icon icon-html">
+                            <i class="fas fa-list"></i>
+                        </div>
+                        <h3 class="lesson-title">Lists & Tables</h3>
+                        <p class="lesson-desc">Create organized content with lists and structured data with tables.</p>
+                        <div class="lesson-meta">
+                            <span><i class="far fa-clock"></i> 60 min</span>
+                            <span class="completed"><i class="fas fa-check"></i> Completed</span>
+                            <a href="htmlpart2.html" class="lesson-link"><i class="fas fa-external-link-alt"></i>start</a>
+                        </div>
+                    </div>
+                    <div class="lesson-card">
+                        <div class="lesson-icon icon-html">
+                            <i class="fas fa-form"></i>
+                        </div>
+                        <h3 class="lesson-title">Forms & Input</h3>
+                        <p class="lesson-desc">Build interactive forms to collect user input and data.</p>
+                        <div class="lesson-meta">
+                            <span><i class="far fa-clock"></i> 75 min</span>
+                            <a href="htmlpart3.html" class="start-link"><i class="fas fa-play-circle"></i> Start</a>
+                           
+                        </div>
+                    </div>
+                    <div class="lesson-card">
+                        <div class="lesson-icon icon-html">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <h3 class="lesson-title">Semantic HTML5</h3>
+                        <p class="lesson-desc">Use semantic elements for better structure and accessibility.</p>
+                        <div class="lesson-meta">
+                            <span><i class="far fa-clock"></i> 50 min</span>
+                            <span><i class="fas fa-lock"></i> Locked</span>
+                            <a href="mordern.html" class="locked-link"><i class="fas fa-lock"></i> UNLOCK</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CSS Modal -->
+    <div id="cssModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <div class="card-icon icon-css">
+                        <i class="fab fa-css3-alt"></i>
+                    </div>
+                    CSS Learning Path
+                </h2>
+                <button class="close-btn" onclick="closeModal('cssModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="lesson-grid">
+                    <div class="lesson-card">
+                        <div class="lesson-icon icon-css">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3 class="lesson-title">CSS Basics</h3>
+                        <p class="lesson-desc">Learn selectors, properties, and the box model.</p>
+                        <div class="lesson-meta">
+                            <span><i class="far fa-clock"></i> 55 min</span>
+                            <span class="completed"><i class="fas fa-check"></i> Completed</span>
+                            <a href="css.html" class="lesson-link"><i class="fas fa-external-link-alt"></i>start</a>
+                        </div>
+                    </div>
+                    <div class="lesson-card">
+                        <div class="lesson-icon icon-css">
+                            <i class="fas fa-th"></i>
+                        </div>
+                        <h3 class="lesson-title">Flexbox Layout</h3>
+                        <p class="lesson-desc">Create flexible and responsive layouts with Flexbox.</p>
+                        <div class="lesson-meta">
+                            <span><i class="far fa-clock"></i> 70 min</span>
+                            <span class="completed"><i class="fas fa-check"></i> Completed</span>
+                            <a href="css2.html" class="lesson-link"><i class="fas fa-external-link-alt"></i>start</a>
+                        </div>
+                    </div>
+                    <div class="lesson-card">
+                        <div class="lesson-icon icon-css">
+                            <i class="fas fa-grip-horizontal"></i>
+                        </div>
+                        <h3 class="lesson-title">CSS Grid</h3>
+                        <p class="lesson-desc">Master two-dimensional layout system with CSS Grid.</p>
+                        <div class="lesson-meta">
+                            <span><i class="far fa-clock"></i> 80 min</span>
+                            <span><i class="fas fa-play-circle"></i> Start</span>
+                            <a href="css3.html" class="start-link"><i class="fas fa-external-link-alt"></i>start</a>
+                        </div>
+                    </div>
+                    <div class="lesson-card">
+                        <div class="lesson-icon icon-css">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 class="lesson-title">Responsive Design</h3>
+                        <p class="lesson-desc">Create websites that work on all devices and screen sizes.</p>
+                        <div class="lesson-meta">
+                            <span><i class="far fa-clock"></i> 65 min</span>
+                            <span><i class="fas fa-lock"></i> Locked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Modal -->
+    <div id="jsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <div class="card-icon icon-js">
+                        <i class="fab fa-js-square"></i>
+                    </div>
+                    JavaScript Learning Path
+                </h2>
+                <button class="close-btn" onclick="closeModal('jsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="lesson-grid">
+                    <div class="lesson-card">
+                        <div class="lesson-icon icon-js">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="lesson-title">JS Fundamentals</h3>
+                        <p class="lesson-desc">Variables, data types, operators, and basic syntax.</p>
+                        <div class="lesson-meta">
+                            <span><i class="far fa-clock"></i> 60 min</span>
+                            <span class="completed"><i class="fas fa-check"></i> Completed</span>
+                            <a href="indexjs.html" class="lesson-link"><i class="fas fa-external-link-alt"></i>start</a>
+                            <a href="jsbasics.html" class="lesson-link"><i class="fas fa-external-link-alt"></i>start</a>
+                        </div>
+                    </div>
+                    <div class="lesson-card">
+                        <div class="lesson-icon icon-js">
+                            <i class="fas fa-sitemap"></i>
+                        </div>
+                        <h3 class="lesson-title">Functions & Scope</h3>
+                        <p class="lesson-desc">Learn to write reusable code with functions.</p>
+                        <div class="lesson-meta">
+                            <span><i class="far fa-clock"></i> 75 min</span>
+                            <span><i class="fas fa-play-circle"></i> Start</span>
+                            <a href="javascript1.html" class="lesson-link"><i class="fas fa-external-link-alt"></i>start</a>
+                            <a href="jsarray.html" class="lesson-link"><i class="fas fa-external-link-alt"></i>start</a>  
+                        </div>
+                    </div>
+                    <div class="lesson-card">
+                        <div class="lesson-icon icon-js">
+                            <i class="fas fa-object-group"></i>
+                        </div>
+                        <h3 class="lesson-title">DOM Manipulation</h3>
+                        <p class="lesson-desc">Interact with and modify web page content dynamically.</p>
+                        <div class="lesson-meta">
+                            <span><i class="far fa-clock"></i> 90 min</span>
+                            <span><i class="fas fa-lock"></i> Locked</span>
+                            <a href="domjs.html" class="locked-link"><i class="fas fa-lock"></i> UNLOCK</a>
+                            <a href="javascript2.html" class="lesson-link"><i class="fas fa-external-link-alt"></i>start</a>
+                        </div>
+                    </div>
+                    <div class="lesson-card">
+                        <div class="lesson-icon icon-js">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="lesson-title">Events & APIs</h3>
+                        <p class="lesson-desc">Handle user interactions and work with external data.</p>
+                        <div class="lesson-meta">
+                            <span><i class="far fa-clock"></i> 85 min</span>
+                            <span><i class="fas fa-lock"></i> Locked</span>
+                            <a href="javascript3.html" class="lesson-link"><i class="fas fa-external-link-alt"></i>start</a>
+                            <a href="part4js.html" class="locked-link"><i class="fas fa-lock"></i> UNLOCK</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Modal -->
+    <div id="projectsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <div class="card-icon icon-projects">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    Project Dashboard
+                </h2>
+                <button class="close-btn" onclick="closeModal('projectsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="lesson-grid">
+                    <div class="lesson-card">
+                        <div class="lesson-icon icon-projects">
+                            <i class="fas fa-tasks"></i>
+                            <a href="project1.html" class="lesson-link"><i class="fas fa-external-link-alt"></i>start</a>
+                        </div>
+                        <h3 class="lesson-title">Task Manager</h3>
+                        <p class="lesson-desc">Build a full-featured task management application.</p>
+                        <div class="lesson-meta">
+                            <span><i class="fas fa-star"></i> Intermediate</span>
+                            <span><i class="fas fa-play-circle"></i> Start</span>
+                            <a href="project2.html" class="lesson-link"><i class="fas fa-external-link-alt"></i>start</a>   
+                        </div>
+                    </div>
+                    <div class="lesson-card">
+                        <div class="lesson-icon icon-projects">
+                            <i class="fas fa-cloud-sun"></i>
+                        </div>
+                        <h3 class="lesson-title">Weather Dashboard</h3>
+                        <p class="lesson-desc">Create a weather app with API integration.</p>
+                        <div class="lesson-meta">
+                            <span><i class="fas fa-star"></i> Intermediate</span>
+                            
+                            <span><i class="fas fa-lock"></i> Locked</span>
+                            <a href="project3.html" class="locked-link"><i class="fas fa-lock"></i> UNLOCK</a>
+                        </div>
+                    </div>
+                    <div class="lesson-card">
+                        <div class="lesson-icon icon-projects">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <h3 class="lesson-title">E-commerce Cart</h3>
+                        <p class="lesson-desc">Build a shopping cart with product management.</p>
+                        <div class="lesson-meta">
+                            <span><i class="fas fa-star"></i> Advanced</span>
+                            <span><i class="fas fa-lock"></i> Locked</span>
+                            <a href="project4.html" class="locked-link"><i class="fas fa-lock"></i> UNLOCK</a>  
+                        </div>
+                    </div>
+                    <div class="lesson-card">
+                        <div class="lesson-icon icon-projects">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <h3 class="lesson-title">Portfolio Website</h3>
+                        <p class="lesson-desc">Create your own professional portfolio site.</p>
+                        <div class="lesson-meta">
+                            <span><i class="fas fa-star"></i> Beginner</span>
+                            <span class="completed"><i class="fas fa-check"></i> Completed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal management
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Simple progress animation on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>

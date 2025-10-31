@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Tutorial - Advanced Topics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .lesson-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .practice-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        h2 {
+            color: #764ba2;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .lesson-content {
+            line-height: 1.7;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 18px;
+            border-radius: 8px;
+            margin: 18px 0;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            overflow-x: auto;
+            font-size: 0.95rem;
+            border-left: 4px solid #667eea;
+        }
+        
+        .topic {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .topic:last-child {
+            border-bottom: none;
+        }
+        
+        .topic-title {
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+        
+        .practice-area {
+            margin-top: 20px;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 180px;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            resize: vertical;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 1rem;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .output {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            min-height: 120px;
+            border-left: 4px solid #667eea;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+        
+        .example {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #764ba2;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 25px;
+            opacity: 0.9;
+        }
+        
+        .lesson-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+        }
+        
+        .lesson-tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .lesson-tab.active {
+            border-bottom: 3px solid #667eea;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .lesson-tab:hover:not(.active) {
+            background: #f8f9fa;
+            border-bottom: 3px solid #c3dafe;
+        }
+        
+        .lesson-content {
+            display: none;
+        }
+        
+        .lesson-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .lesson-tabs {
+                flex-direction: column;
+            }
+            
+            .lesson-tab {
+                text-align: center;
+                border-bottom: 1px solid #e2e8f0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JavaScript Advanced Topics</h1>
+            <p class="subtitle">Master asynchronous programming, error handling, and modern JavaScript patterns</p>
+        </header>
+        
+        <div class="content">
+            <section class="lesson-section">
+                <div class="lesson-tabs">
+                    <div class="lesson-tab active" data-tab="async">Async/Await</div>
+                    <div class="lesson-tab" data-tab="promises">Promises</div>
+                    <div class="lesson-tab" data-tab="error-handling">Error Handling</div>
+                    <div class="lesson-tab" data-tab="modules">Modules</div>
+                    <div class="lesson-tab" data-tab="apis">APIs & Fetch</div>
+                </div>
+                
+                <div id="async" class="lesson-content active">
+                    <h2>Async/Await</h2>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Understanding Async Functions</div>
+                        <p>Async/await is syntactic sugar built on top of promises, making asynchronous code easier to write and read.</p>
+                        <div class="code-block">
+                            // Basic async function
+                            async function fetchData() {
+                                // Simulate API call
+                                return new Promise(resolve => {
+                                    setTimeout(() => {
+                                        resolve("Data received!");
+                                    }, 1000);
+                                });
+                            }
+                            
+                            // Using await
+                            async function getData() {
+                                console.log("Fetching data...");
+                                const data = await fetchData();
+                                console.log(data); // "Data received!"
+                                return data;
+                            }
+                            
+                            getData();
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Error Handling with Async/Await</div>
+                        <div class="code-block">
+                            async function fetchWithErrorHandling() {
+                                try {
+                                    const response = await fetch('https://api.example.com/data');
+                                    if (!response.ok) {
+                                        throw new Error('Network response was not ok');
+                                    }
+                                    const data = await response.json();
+                                    return data;
+                                } catch (error) {
+                                    console.error('Fetch failed:', error.message);
+                                    // Fallback data
+                                    return { fallback: true, data: [] };
+                                }
+                            }
+                            
+                            // Using the function
+                            fetchWithErrorHandling().then(data => {
+                                console.log('Received data:', data);
+                            });
+                        </div>
+                    </div>
+                    
+                    <div class="note">
+                        <strong>Note:</strong> Async functions always return a promise, even if you return a non-promise value.
+                    </div>
+                </div>
+                
+                <div id="promises" class="lesson-content">
+                    <h2>Promises Deep Dive</h2>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Promise Chaining</div>
+                        <p>Promises can be chained to perform sequential asynchronous operations.</p>
+                        <div class="code-block">
+                            function getUser(userId) {
+                                return new Promise((resolve) => {
+                                    setTimeout(() => {
+                                        resolve({ id: userId, name: 'John Doe' });
+                                    }, 500);
+                                });
+                            }
+                            
+                            function getUserPosts(user) {
+                                return new Promise((resolve) => {
+                                    setTimeout(() => {
+                                        resolve([
+                                            { id: 1, title: 'Post 1', author: user.name },
+                                            { id: 2, title: 'Post 2', author: user.name }
+                                        ]);
+                                    }, 500);
+                                });
+                            }
+                            
+                            // Promise chaining
+                            getUser(123)
+                                .then(user => {
+                                    console.log('User:', user);
+                                    return getUserPosts(user);
+                                })
+                                .then(posts => {
+                                    console.log('Posts:', posts);
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Promise Methods</div>
+                        <div class="code-block">
+                            // Promise.all - wait for all promises to resolve
+                            const promise1 = Promise.resolve(3);
+                            const promise2 = 42;
+                            const promise3 = new Promise((resolve) => {
+                                setTimeout(resolve, 100, 'foo');
+                            });
+                            
+                            Promise.all([promise1, promise2, promise3])
+                                .then(values => {
+                                    console.log(values); // [3, 42, "foo"]
+                                });
+                            
+                            // Promise.race - returns first settled promise
+                            Promise.race([promise1, promise3])
+                                .then(value => {
+                                    console.log(value); // 3 (resolves immediately)
+                                });
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="error-handling" class="lesson-content">
+                    <h2>Advanced Error Handling</h2>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Custom Error Classes</div>
+                        <p>Create specific error types for better error handling and debugging.</p>
+                        <div class="code-block">
+                            class ValidationError extends Error {
+                                constructor(message, field) {
+                                    super(message);
+                                    this.name = 'ValidationError';
+                                    this.field = field;
+                                    this.timestamp = new Date().toISOString();
+                                }
+                            }
+                            
+                            class NetworkError extends Error {
+                                constructor(message, statusCode) {
+                                    super(message);
+                                    this.name = 'NetworkError';
+                                    this.statusCode = statusCode;
+                                }
+                            }
+                            
+                            function validateUser(user) {
+                                if (!user.email) {
+                                    throw new ValidationError('Email is required', 'email');
+                                }
+                                if (!user.password) {
+                                    throw new ValidationError('Password is required', 'password');
+                                }
+                                return true;
+                            }
+                            
+                            try {
+                                validateUser({ email: '' });
+                            } catch (error) {
+                                if (error instanceof ValidationError) {
+                                    console.error(`Validation failed for ${error.field}: ${error.message}`);
+                                } else {
+                                    console.error('Unknown error:', error);
+                                }
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Global Error Handling</div>
+                        <div class="code-block">
+                            // Global error handler for promises
+                            window.addEventListener('unhandledrejection', event => {
+                                console.error('Unhandled promise rejection:', event.reason);
+                                event.preventDefault();
+                            });
+                            
+                            // Global error handler for sync errors
+                            window.addEventListener('error', event => {
+                                console.error('Global error:', event.error);
+                            });
+                            
+                            // For Node.js (if you're using Node)
+                            process.on('unhandledRejection', (reason, promise) => {
+                                console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+                            });
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="modules" class="lesson-content">
+                    <h2>JavaScript Modules</h2>
+                    
+                    <div class="topic">
+                        <div class="topic-title">ES6 Module Syntax</div>
+                        <p>Modules help you organize code into reusable, maintainable pieces.</p>
+                        <div class="code-block">
+                            // math.js - export module
+                            export const PI = 3.14159;
+                            
+                            export function add(a, b) {
+                                return a + b;
+                            }
+                            
+                            export function multiply(a, b) {
+                                return a * b;
+                            }
+                            
+                            // Default export
+                            export default class Calculator {
+                                constructor() {
+                                    this.result = 0;
+                                }
+                                
+                                add(value) {
+                                    this.result += value;
+                                    return this;
+                                }
+                                
+                                getResult() {
+                                    return this.result;
+                                }
+                            }
+                        </div>
+                        
+                        <div class="code-block">
+                            // app.js - import module
+                            import Calculator, { PI, add, multiply } from './math.js';
+                            
+                            console.log(PI); // 3.14159
+                            console.log(add(2, 3)); // 5
+                            
+                            const calc = new Calculator();
+                            calc.add(5).add(3);
+                            console.log(calc.getResult()); // 8
+                            
+                            // Dynamic imports
+                            async function loadModule() {
+                                const module = await import('./math.js');
+                                console.log(module.multiply(4, 5)); // 20
+                            }
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="apis" class="lesson-content">
+                    <h2>Working with APIs</h2>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Fetch API & HTTP Methods</div>
+                        <p>The Fetch API provides a modern interface for making HTTP requests.</p>
+                        <div class="code-block">
+                            // GET request
+                            async function getUsers() {
+                                try {
+                                    const response = await fetch('https://jsonplaceholder.typicode.com/users');
+                                    if (!response.ok) {
+                                        throw new Error(`HTTP error! status: ${response.status}`);
+                                    }
+                                    const users = await response.json();
+                                    return users;
+                                } catch (error) {
+                                    console.error('Failed to fetch users:', error);
+                                }
+                            }
+                            
+                            // POST request
+                            async function createPost(postData) {
+                                const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify(postData)
+                                });
+                                
+                                if (!response.ok) {
+                                    throw new Error('Failed to create post');
+                                }
+                                
+                                return await response.json();
+                            }
+                            
+                            // Using the functions
+                            getUsers().then(users => console.log(users));
+                            
+                            createPost({
+                                title: 'My Post',
+                                body: 'This is my post content',
+                                userId: 1
+                            }).then(post => console.log('Created post:', post));
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">API Best Practices</div>
+                        <div class="code-block">
+                            // API service with error handling and timeouts
+                            class ApiService {
+                                constructor(baseURL, timeout = 5000) {
+                                    this.baseURL = baseURL;
+                                    this.timeout = timeout;
+                                }
+                                
+                                async request(endpoint, options = {}) {
+                                    const controller = new AbortController();
+                                    const timeoutId = setTimeout(() => controller.abort(), this.timeout);
+                                    
+                                    try {
+                                        const response = await fetch(`${this.baseURL}${endpoint}`, {
+                                            ...options,
+                                            signal: controller.signal
+                                        });
+                                        
+                                        clearTimeout(timeoutId);
+                                        
+                                        if (!response.ok) {
+                                            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                                        }
+                                        
+                                        return await response.json();
+                                    } catch (error) {
+                                        clearTimeout(timeoutId);
+                                        if (error.name === 'AbortError') {
+                                            throw new Error('Request timeout');
+                                        }
+                                        throw error;
+                                    }
+                                }
+                                
+                                get(endpoint) {
+                                    return this.request(endpoint);
+                                }
+                                
+                                post(endpoint, data) {
+                                    return this.request(endpoint, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify(data)
+                                    });
+                                }
+                            }
+                            
+                            // Usage
+                            const api = new ApiService('https://jsonplaceholder.typicode.com');
+                            api.get('/users/1').then(user => console.log(user));
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button id="prev-btn">Previous Topics</button>
+                    <button id="next-btn">Next: Projects</button>
+                </div>
+            </section>
+            
+            <section class="practice-section">
+                <h2>Practice Area</h2>
+                <p>Try these advanced JavaScript concepts in the code editor below.</p>
+                
+                <div class="practice-area">
+                    <textarea id="code-input" placeholder="Enter your JavaScript code here...">// Practice: Async/Await and API calls
+async function simulateApiCalls() {
+    // Simulate fetching user data
+    const fetchUser = () => new Promise(resolve => {
+        setTimeout(() => resolve({ id: 1, name: 'John Doe', email: 'john@example.com' }), 1000);
+    });
+    
+    // Simulate fetching user posts
+    const fetchUserPosts = (userId) => new Promise(resolve => {
+        setTimeout(() => resolve([
+            { id: 1, title: 'First Post', userId: userId },
+            { id: 2, title: 'Second Post', userId: userId }
+        ]), 800);
+    });
+    
+    try {
+        console.log('Fetching user data...');
+        const user = await fetchUser();
+        console.log('User:', user);
+        
+        console.log('Fetching user posts...');
+        const posts = await fetchUserPosts(user.id);
+        console.log('Posts:', posts);
+        
+        return { user, posts };
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
+// Execute the function
+simulateApiCalls().then(result => {
+    console.log('Final result:', result);
+});</textarea>
+                    
+                    <button id="run-btn">Run Code</button>
+                    
+                    <div class="output" id="output">
+                        Output will appear here after running your code.
+                    </div>
+                </div>
+                
+                <div class="example">
+                    <h3>Advanced Practice Exercises:</h3>
+                    <ul>
+                        <li>Create a function that retries failed API calls up to 3 times</li>
+                        <li>Implement a rate-limited API client that prevents too many requests</li>
+                        <li>Build a custom promise that resolves after a random delay</li>
+                        <li>Create an error boundary component for React-like error handling</li>
+                        <li>Implement a service worker-like cache for API responses</li>
+                    </ul>
+                </div>
+                
+                <div class="note">
+                    <strong>Tip:</strong> Use the browser's Developer Tools (F12) to see detailed error messages and debug your code.
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>JavaScript Advanced Tutorial &copy; 2023 | Master these concepts to become a proficient JavaScript developer!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.lesson-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.lesson-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.lesson-content').forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+        
+        // Run code button functionality
+        document.getElementById('run-btn').addEventListener('click', function() {
+            const codeInput = document.getElementById('code-input').value;
+            const outputElement = document.getElementById('output');
+            
+            outputElement.innerHTML = '';
+            outputElement.style.color = '#333';
+            
+            try {
+                const originalLog = console.log;
+                let logOutput = '';
+                
+                console.log = function(...args) {
+                    logOutput += args.map(arg => {
+                        if (typeof arg === 'object') {
+                            return JSON.stringify(arg, null, 2);
+                        }
+                        return String(arg);
+                    }).join(' ') + '\n';
+                    originalLog.apply(console, args);
+                };
+                
+                // Add error logging
+                const originalError = console.error;
+                console.error = function(...args) {
+                    logOutput += 'ERROR: ' + args.join(' ') + '\n';
+                    originalError.apply(console, args);
+                };
+                
+                // Execute the code
+                eval(codeInput);
+                
+                // Restore original console methods
+                console.log = originalLog;
+                console.error = originalError;
+                
+                outputElement.textContent = logOutput || 'Code executed successfully (no output)';
+            } catch (error) {
+                outputElement.style.color = 'red';
+                outputElement.textContent = `Error: ${error.message}\n\nStack: ${error.stack}`;
+            }
+        });
+        
+        // Navigation buttons
+        document.getElementById('next-btn').addEventListener('click', function() {
+            alert('Next part: Real-world projects and applications!');
+        });
+        
+        document.getElementById('prev-btn').addEventListener('click', function() {
+            alert('Returning to intermediate concepts...');
+        });
+        
+        // Initialize with example output
+        setTimeout(() => {
+            document.getElementById('output').textContent = `Fetching user data...
+User: {
+  "id": 1,
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+Fetching user posts...
+Posts: [
+  {
+    "id": 1,
+    "title": "First Post",
+    "userId": 1
+  },
+  {
+    "id": 2,
+    "title": "Second Post",
+    "userId": 1
+  }
+]
+Final result: {
+  "user": {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john@example.com"
+  },
+  "posts": [
+    {
+      "id": 1,
+      "title": "First Post",
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "title": "Second Post",
+      "userId": 1
+    }
+  ]
+}`;
+        }, 100);
+    </script>
+</body>
+</html>

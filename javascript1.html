@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Tutorial - Advanced Concepts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .lesson-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .practice-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        h2 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #fdbb2d;
+        }
+        
+        .lesson-content {
+            line-height: 1.6;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        .topic {
+            margin-bottom: 25px;
+        }
+        
+        .topic-title {
+            font-weight: bold;
+            color: #b21f1f;
+            margin-bottom: 8px;
+        }
+        
+        .practice-area {
+            margin-top: 20px;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+        
+        button {
+            background: #1a2a6c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #b21f1f;
+        }
+        
+        .output {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            min-height: 100px;
+            border-left: 4px solid #1a2a6c;
+        }
+        
+        .example {
+            background: #e8f4fd;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            padding: 20px;
+            opacity: 0.8;
+        }
+        
+        .lesson-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .lesson-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .lesson-tab.active {
+            border-bottom: 3px solid #1a2a6c;
+            font-weight: bold;
+            color: #1a2a6c;
+        }
+        
+        .lesson-content {
+            display: none;
+        }
+        
+        .lesson-content.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .lesson-tabs {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JavaScript Tutorial - Advanced Concepts</h1>
+            <p class="subtitle">Continue your JavaScript journey with loops, arrays, objects, and DOM manipulation</p>
+        </header>
+        
+        <div class="content">
+            <section class="lesson-section">
+                <div class="lesson-tabs">
+                    <div class="lesson-tab active" data-tab="loops">Loops</div>
+                    <div class="lesson-tab" data-tab="arrays">Arrays</div>
+                    <div class="lesson-tab" data-tab="objects">Objects</div>
+                    <div class="lesson-tab" data-tab="dom">DOM Manipulation</div>
+                    <div class="lesson-tab" data-tab="es6">ES6+ Features</div>
+                </div>
+                
+                <div id="loops" class="lesson-content active">
+                    <h2>Loops in JavaScript</h2>
+                    
+                    <div class="topic">
+                        <div class="topic-title">for Loop</div>
+                        <p>The for loop repeats until a specified condition evaluates to false.</p>
+                        <div class="code-block">
+                            // Basic for loop<br>
+                            for (let i = 0; i < 5; i++) {<br>
+                            &nbsp;&nbsp;console.log("Iteration: " + i);<br>
+                            }<br><br>
+                            
+                            // Looping through an array<br>
+                            const fruits = ["apple", "banana", "orange"];<br>
+                            for (let i = 0; i < fruits.length; i++) {<br>
+                            &nbsp;&nbsp;console.log(fruits[i]);<br>
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">while Loop</div>
+                        <p>The while loop executes as long as the condition is true.</p>
+                        <div class="code-block">
+                            let count = 0;<br>
+                            while (count < 3) {<br>
+                            &nbsp;&nbsp;console.log("Count: " + count);<br>
+                            &nbsp;&nbsp;count++;<br>
+                            }<br><br>
+                            
+                            // Do-while loop (executes at least once)<br>
+                            let num = 5;<br>
+                            do {<br>
+                            &nbsp;&nbsp;console.log("Number: " + num);<br>
+                            &nbsp;&nbsp;num--;<br>
+                            } while (num > 0);
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">for...of Loop</div>
+                        <p>The for...of loop creates a loop iterating over iterable objects like arrays.</p>
+                        <div class="code-block">
+                            const colors = ["red", "green", "blue"];<br><br>
+                            
+                            for (const color of colors) {<br>
+                            &nbsp;&nbsp;console.log(color);<br>
+                            }<br><br>
+                            
+                            // With index using entries()<br>
+                            for (const [index, color] of colors.entries()) {<br>
+                            &nbsp;&nbsp;console.log(index + ": " + color);<br>
+                            }
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="arrays" class="lesson-content">
+                    <h2>Array Methods</h2>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Common Array Methods</div>
+                        <p>Arrays have many built-in methods for manipulation and iteration.</p>
+                        <div class="code-block">
+                            const numbers = [1, 2, 3, 4, 5];<br><br>
+                            
+                            // map - creates new array with transformed elements<br>
+                            const doubled = numbers.map(num => num * 2);<br>
+                            console.log(doubled); // [2, 4, 6, 8, 10]<br><br>
+                            
+                            // filter - creates new array with elements that pass test<br>
+                            const even = numbers.filter(num => num % 2 === 0);<br>
+                            console.log(even); // [2, 4]<br><br>
+                            
+                            // reduce - reduces array to single value<br>
+                            const sum = numbers.reduce((acc, num) => acc + num, 0);<br>
+                            console.log(sum); // 15<br><br>
+                            
+                            // find - returns first element that passes test<br>
+                            const firstEven = numbers.find(num => num % 2 === 0);<br>
+                            console.log(firstEven); // 2
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">More Array Methods</div>
+                        <div class="code-block">
+                            const fruits = ["apple", "banana", "orange", "grape"];<br><br>
+                            
+                            // forEach - executes function for each element<br>
+                            fruits.forEach(fruit => console.log(fruit));<br><br>
+                            
+                            // some - tests if at least one element passes test<br>
+                            const hasApple = fruits.some(fruit => fruit === "apple");<br>
+                            console.log(hasApple); // true<br><br>
+                            
+                            // every - tests if all elements pass test<br>
+                            const allStrings = fruits.every(fruit => typeof fruit === "string");<br>
+                            console.log(allStrings); // true<br><br>
+                            
+                            // includes - checks if array contains element<br>
+                            console.log(fruits.includes("banana")); // true
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="objects" class="lesson-content">
+                    <h2>Working with Objects</h2>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Object Basics</div>
+                        <p>Objects are collections of key-value pairs.</p>
+                        <div class="code-block">
+                            // Object creation<br>
+                            const person = {<br>
+                            &nbsp;&nbsp;firstName: "John",<br>
+                            &nbsp;&nbsp;lastName: "Doe",<br>
+                            &nbsp;&nbsp;age: 30,<br>
+                            &nbsp;&nbsp;hobbies: ["reading", "coding", "gaming"],<br>
+                            &nbsp;&nbsp;address: {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;street: "123 Main St",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;city: "Boston"<br>
+                            &nbsp;&nbsp;},<br>
+                            &nbsp;&nbsp;getFullName: function() {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return this.firstName + " " + this.lastName;<br>
+                            &nbsp;&nbsp;}<br>
+                            };<br><br>
+                            
+                            // Accessing properties<br>
+                            console.log(person.firstName); // John<br>
+                            console.log(person["lastName"]); // Doe<br>
+                            console.log(person.getFullName()); // John Doe<br>
+                            console.log(person.hobbies[0]); // reading
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Object Methods</div>
+                        <div class="code-block">
+                            const car = {<br>
+                            &nbsp;&nbsp;brand: "Toyota",<br>
+                            &nbsp;&nbsp;model: "Camry",<br>
+                            &nbsp;&nbsp;year: 2020<br>
+                            };<br><br>
+                            
+                            // Object.keys - get all keys<br>
+                            console.log(Object.keys(car)); // ["brand", "model", "year"]<br><br>
+                            
+                            // Object.values - get all values<br>
+                            console.log(Object.values(car)); // ["Toyota", "Camry", 2020]<br><br>
+                            
+                            // Object.entries - get key-value pairs<br>
+                            console.log(Object.entries(car));<br>
+                            // [["brand", "Toyota"], ["model", "Camry"], ["year", 2020]]<br><br>
+                            
+                            // Adding properties<br>
+                            car.color = "blue";<br>
+                            console.log(car.color); // blue
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="dom" class="lesson-content">
+                    <h2>DOM Manipulation</h2>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Selecting Elements</div>
+                        <p>The DOM (Document Object Model) allows JavaScript to interact with HTML.</p>
+                        <div class="code-block">
+                            // Selecting elements<br>
+                            const header = document.getElementById("header");<br>
+                            const buttons = document.getElementsByClassName("btn");<br>
+                            const firstPara = document.querySelector("p");<br>
+                            const allDivs = document.querySelectorAll("div");<br><br>
+                            
+                            // Creating elements<br>
+                            const newDiv = document.createElement("div");<br>
+                            newDiv.textContent = "Hello, World!";<br>
+                            newDiv.classList.add("my-class");<br><br>
+                            
+                            // Appending to DOM<br>
+                            document.body.appendChild(newDiv);
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Event Handling</div>
+                        <div class="code-block">
+                            // Adding event listeners<br>
+                            const button = document.getElementById("myButton");<br><br>
+                            
+                            button.addEventListener("click", function() {<br>
+                            &nbsp;&nbsp;console.log("Button clicked!");<br>
+                            &nbsp;&nbsp;this.style.backgroundColor = "red";<br>
+                            });<br><br>
+                            
+                            // Event delegation<br>
+                            document.addEventListener("click", function(event) {<br>
+                            &nbsp;&nbsp;if (event.target.classList.contains("item")) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;console.log("Item clicked: " + event.target.textContent);<br>
+                            &nbsp;&nbsp;}<br>
+                            });
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="es6" class="lesson-content">
+                    <h2>ES6+ Features</h2>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Destructuring</div>
+                        <p>Destructuring allows unpacking values from arrays or properties from objects.</p>
+                        <div class="code-block">
+                            // Array destructuring<br>
+                            const colors = ["red", "green", "blue"];<br>
+                            const [firstColor, secondColor] = colors;<br>
+                            console.log(firstColor); // red<br>
+                            console.log(secondColor); // green<br><br>
+                            
+                            // Object destructuring<br>
+                            const person = {<br>
+                            &nbsp;&nbsp;name: "Alice",<br>
+                            &nbsp;&nbsp;age: 25,<br>
+                            &nbsp;&nbsp;city: "New York"<br>
+                            };<br>
+                            const { name, age } = person;<br>
+                            console.log(name); // Alice<br>
+                            console.log(age); // 25
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Spread Operator & Template Literals</div>
+                        <div class="code-block">
+                            // Spread operator<br>
+                            const arr1 = [1, 2, 3];<br>
+                            const arr2 = [4, 5, 6];<br>
+                            const combined = [...arr1, ...arr2];<br>
+                            console.log(combined); // [1, 2, 3, 4, 5, 6]<br><br>
+                            
+                            // With objects<br>
+                            const obj1 = { a: 1, b: 2 };<br>
+                            const obj2 = { c: 3, d: 4 };<br>
+                            const merged = { ...obj1, ...obj2 };<br>
+                            console.log(merged); // {a: 1, b: 2, c: 3, d: 4}<br><br>
+                            
+                            // Template literals<br>
+                            const userName = "John";<br>
+                            const greeting = `Hello, ${userName}! Welcome to our app.`;<br>
+                            console.log(greeting); // Hello, John! Welcome to our app.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button id="prev-btn">Previous</button>
+                    <button id="next-btn">Next Lesson</button>
+                </div>
+            </section>
+            
+            <section class="practice-section">
+                <h2>Practice Area</h2>
+                <p>Try writing JavaScript code below and see the output!</p>
+                
+                <div class="practice-area">
+                    <textarea id="code-input" placeholder="Enter your JavaScript code here...">// Example: Working with arrays and objects
+const students = [
+  { name: "Alice", grade: 95 },
+  { name: "Bob", grade: 87 },
+  { name: "Charlie", grade: 92 }
+];
+
+// Filter students with grade >= 90
+const topStudents = students.filter(student => student.grade >= 90);
+console.log("Top students:", topStudents);
+
+// Calculate average grade
+const averageGrade = students.reduce((sum, student) => sum + student.grade, 0) / students.length;
+console.log("Average grade:", averageGrade.toFixed(2));
+
+// Using template literals
+topStudents.forEach(student => {
+  console.log(`${student.name} scored ${student.grade} points`);
+});</textarea>
+                    
+                    <button id="run-btn">Run Code</button>
+                    
+                    <div class="output" id="output">
+                        Output will appear here after running your code.
+                    </div>
+                </div>
+                
+                <div class="example">
+                    <h3>Practice Exercises:</h3>
+                    <ul>
+                        <li>Create a function that finds the maximum number in an array</li>
+                        <li>Write code to reverse a string without using built-in methods</li>
+                        <li>Create a simple to-do list using objects and arrays</li>
+                        <li>Implement a function that counts how many times each word appears in a string</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>JavaScript Tutorial &copy; 2023 | Practice regularly to master JavaScript!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.lesson-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and content
+                document.querySelectorAll('.lesson-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.lesson-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+        
+        // Run code button functionality
+        document.getElementById('run-btn').addEventListener('click', function() {
+            const codeInput = document.getElementById('code-input').value;
+            const outputElement = document.getElementById('output');
+            
+            // Clear previous output
+            outputElement.innerHTML = '';
+            
+            try {
+                // Capture console.log output
+                const originalLog = console.log;
+                let logOutput = '';
+                
+                console.log = function(...args) {
+                    logOutput += args.map(arg => {
+                        if (typeof arg === 'object') {
+                            return JSON.stringify(arg);
+                        }
+                        return arg;
+                    }).join(' ') + '<br>';
+                    originalLog.apply(console, args);
+                };
+                
+                // Execute the code
+                eval(codeInput);
+                
+                // Restore original console.log
+                console.log = originalLog;
+                
+                // Display the output
+                outputElement.innerHTML = logOutput || 'Code executed successfully (no output)';
+            } catch (error) {
+                outputElement.innerHTML = `<span style="color: red;">Error: ${error.message}</span>`;
+            }
+        });
+        
+        // Navigation buttons
+        document.getElementById('next-btn').addEventListener('click', function() {
+            alert('In a full tutorial, this would load the next set of lessons. Keep learning!');
+        });
+        
+        document.getElementById('prev-btn').addEventListener('click', function() {
+            alert('In a full tutorial, this would return to basic concepts.');
+        });
+        
+        // Initialize with example output
+        document.getElementById('output').innerHTML = 
+            'Top students: [{"name":"Alice","grade":95},{"name":"Charlie","grade":92}]<br>' +
+            'Average grade: 91.33<br>' +
+            'Alice scored 95 points<br>' +
+            'Charlie scored 92 points';
+    </script>
+</body>
+</html>

@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn JavaScript - Modern Features (ES6+)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 968px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .theory-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .practice-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #dd6b20;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #ed8936;
+        }
+
+        h3 {
+            color: #ed8936;
+            margin: 25px 0 15px 0;
+        }
+
+        h4 {
+            color: #2d3748;
+            margin: 20px 0 10px 0;
+        }
+
+        .chapter {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .chapter:last-child {
+            border-bottom: none;
+        }
+
+        .js-keyword {
+            display: inline-block;
+            background: #dd6b20;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 0 2px;
+            font-size: 0.9em;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            overflow-x: auto;
+            border-left: 4px solid #ed8936;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .example {
+            background: #fffaf0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #dd6b20;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .practice-area {
+            margin-top: 25px;
+        }
+
+        .editor-container {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .editor-header {
+            background: #2d3748;
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 15px;
+            border: none;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            resize: vertical;
+            font-size: 14px;
+            background: #f8f9fa;
+        }
+
+        button {
+            background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button.secondary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .preview {
+            margin-top: 20px;
+            padding: 20px;
+            background: #1a202c;
+            color: #e2e8f0;
+            border-radius: 8px;
+            min-height: 200px;
+            border-left: 4px solid #ed8936;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 25px;
+            opacity: 0.9;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background: #e2e8f0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .tab-button.active {
+            background: #ed8936;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Demo Styles */
+        .demo-area {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .demo-controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .demo-controls button {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        .interactive-demo {
+            background: #edf2f7;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #ed8936;
+            text-align: center;
+        }
+
+        .demo-object {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            margin: 10px 0;
+        }
+
+        .property {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .property:last-child {
+            border-bottom: none;
+        }
+
+        .class-demo {
+            border: 2px solid #ed8936;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            background: white;
+        }
+
+        .module-demo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 15px 0;
+        }
+
+        .module-box {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Modern JavaScript Features</h1>
+            <p class="subtitle">Master ES6+ syntax, classes, modules, and advanced patterns</p>
+        </header>
+
+        <div class="content-grid">
+            <section class="theory-section">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="es6-syntax">ES6+ Syntax</button>
+                    <button class="tab-button" data-tab="classes">Classes & OOP</button>
+                    <button class="tab-button" data-tab="modules">Modules</button>
+                    <button class="tab-button" data-tab="advanced">Advanced Features</button>
+                </div>
+
+                <div id="es6-syntax" class="chapter tab-content active">
+                    <h2>ES6+ Syntax Features</h2>
+                    <p>Modern JavaScript introduces cleaner, more expressive syntax.</p>
+
+                    <h3>Let and Const</h3>
+                    <div class="code-block">
+// let - block-scoped variables
+let name = "John";
+name = "Jane"; // Reassignment allowed
+
+// const - block-scoped constants
+const PI = 3.14159;
+// PI = 3.14; // Error: Assignment to constant variable
+
+// const with objects
+const person = { name: "Alice" };
+person.name = "Bob"; // Allowed - modifying property
+// person = { name: "Charlie" }; // Error - reassignment
+
+// Block scope example
+{
+    let blockScoped = "I exist only in this block";
+    const alsoBlockScoped = "Me too!";
+}
+// console.log(blockScoped); // Error - not defined
+                    </div>
+
+                    <h3>Arrow Functions</h3>
+                    <div class="code-block">
+// Traditional function
+function add(a, b) {
+    return a + b;
+}
+
+// Arrow function equivalent
+const add = (a, b) => a + b;
+
+// Multiple parameters
+const multiply = (a, b) => {
+    const result = a * b;
+    return result;
+};
+
+// Single parameter (no parentheses needed)
+const square = x => x * x;
+
+// No parameters
+const greet = () => "Hello!";
+
+// Returning objects
+const createUser = (name, age) => ({ name, age });
+
+// this binding difference
+const obj = {
+    value: 42,
+    traditional: function() {
+        console.log(this.value); // 42
+    },
+    arrow: () => {
+        console.log(this.value); // undefined (lexical this)
+    }
+};
+                    </div>
+
+                    <div class="demo-area">
+                        <h4>Arrow Function Demo</h4>
+                        <div class="demo-controls">
+                            <button onclick="demoArrow('basic')">Basic Arrow</button>
+                            <button onclick="demoArrow('object')">Return Object</button>
+                            <button onclick="demoArrow('this')">This Binding</button>
+                            <button onclick="demoArrow('array')">Array Methods</button>
+                        </div>
+                        <div id="arrowOutput" class="preview" style="min-height: 100px;">
+                            Click buttons to see arrow function examples
+                        </div>
+                    </div>
+
+                    <h3>Template Literals</h3>
+                    <div class="code-block">
+const name = "Alice";
+const age = 30;
+
+// Traditional concatenation
+const message1 = "Hello, " + name + "! You are " + age + " years old.";
+
+// Template literal
+const message2 = `Hello, ${name}! You are ${age} years old.`;
+
+// Multi-line strings
+const multiLine = `
+    This is a
+    multi-line
+    string!
+`;
+
+// Expressions in templates
+const calculation = `The result is: ${5 + 3 * 2}`;
+
+// Function calls in templates
+const user = { firstName: "John", lastName: "Doe" };
+const fullName = `Full name: ${user.firstName} ${user.lastName}`;
+
+// Tagged templates
+function highlight(strings, ...values) {
+    return strings.reduce((result, str, i) => {
+        return result + str + (values[i] ? `<mark>${values[i]}</mark>` : '');
+    }, '');
+}
+
+const highlighted = highlight`Hello ${name}, you are ${age} years old.`;
+                    </div>
+
+                    <h3>Enhanced Object Literals</h3>
+                    <div class="code-block">
+const name = "Alice";
+const age = 30;
+
+// Shorthand property names
+const person = { name, age }; // { name: "Alice", age: 30 }
+
+// Shorthand method names
+const calculator = {
+    add(a, b) {  // Instead of add: function(a, b) {}
+        return a + b;
+    },
+    multiply(a, b) {
+        return a * b;
+    }
+};
+
+// Computed property names
+const propName = "score";
+const dynamicKey = "dynamic";
+
+const game = {
+    [propName]: 100,
+    [`${dynamicKey}Key`]: "computed value"
+};
+// { score: 100, dynamicKey: "computed value" }
+
+// Method definitions
+const obj = {
+    // Traditional
+    traditional: function() { return this; },
+    // Shorthand
+    shorthand() { return this; },
+    // Arrow (careful with this!)
+    arrow: () => this
+};
+                    </div>
+                </div>
+
+                <div id="classes" class="chapter tab-content">
+                    <h2>Classes & Object-Oriented Programming</h2>
+                    <p>ES6 classes provide a cleaner syntax for constructor functions and inheritance.</p>
+
+                    <h3>Class Basics</h3>
+                    <div class="code-block">
+// Class declaration
+class Person {
+    // Constructor method
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    // Instance method
+    greet() {
+        return `Hello, my name is ${this.name}`;
+    }
+    
+    // Static method
+    static species() {
+        return "Homo sapiens";
+    }
+}
+
+// Creating instances
+const alice = new Person("Alice", 30);
+console.log(alice.greet()); // "Hello, my name is Alice"
+console.log(Person.species()); // "Homo sapiens"
+
+// Under the hood: still prototype-based
+console.log(typeof Person); // "function"
+console.log(Person.prototype.greet); // function
+                    </div>
+
+                    <h3>Inheritance</h3>
+                    <div class="code-block">
+class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+    
+    speak() {
+        return `${this.name} makes a sound`;
+    }
+}
+
+class Dog extends Animal {
+    constructor(name, breed) {
+        super(name); // Call parent constructor
+        this.breed = breed;
+    }
+    
+    // Override parent method
+    speak() {
+        return `${this.name} barks!`;
+    }
+    
+    // New method
+    fetch() {
+        return `${this.name} fetches the ball`;
+    }
+}
+
+const dog = new Dog("Rex", "Golden Retriever");
+console.log(dog.speak()); // "Rex barks!"
+console.log(dog.fetch()); // "Rex fetches the ball"
+console.log(dog instanceof Animal); // true
+console.log(dog instanceof Dog); // true
+                    </div>
+
+                    <div class="class-demo">
+                        <h4>Class Inheritance Demo</h4>
+                        <div class="demo-controls">
+                            <button onclick="demoClass('basic')">Basic Class</button>
+                            <button onclick="demoClass('inheritance')">Inheritance</button>
+                            <button onclick="demoClass('static')">Static Methods</button>
+                            <button onclick="demoClass('getset')">Getters/Setters</button>
+                        </div>
+                        <div id="classOutput" class="preview" style="min-height: 120px;">
+                            Click buttons to see class examples
+                        </div>
+                    </div>
+
+                    <h3>Getters, Setters, and Private Fields</h3>
+                    <div class="code-block">
+class BankAccount {
+    // Private field (ES2022)
+    #balance = 0;
+    
+    constructor(owner, initialBalance = 0) {
+        this.owner = owner;
+        this.#balance = initialBalance;
+    }
+    
+    // Getter
+    get balance() {
+        return this.#balance;
+    }
+    
+    // Setter with validation
+    set balance(amount) {
+        if (amount < 0) {
+            throw new Error("Balance cannot be negative");
+        }
+        this.#balance = amount;
+    }
+    
+    // Method
+    deposit(amount) {
+        if (amount <= 0) {
+            throw new Error("Deposit amount must be positive");
+        }
+        this.#balance += amount;
+        return this.#balance;
+    }
+    
+    withdraw(amount) {
+        if (amount > this.#balance) {
+            throw new Error("Insufficient funds");
+        }
+        this.#balance -= amount;
+        return this.#balance;
+    }
+}
+
+const account = new BankAccount("Alice", 1000);
+console.log(account.balance); // 1000 (using getter)
+account.deposit(500);
+console.log(account.balance); // 1500
+// account.#balance; // Error: Private field
+                    </div>
+
+                    <h3>Class vs Prototype</h3>
+                    <div class="code-block">
+// ES5 Prototype approach
+function OldPerson(name, age) {
+    this.name = name;
+    this.age = age;
+}
+
+OldPerson.prototype.greet = function() {
+    return "Hello, " + this.name;
+};
+
+// ES6 Class approach (syntactic sugar)
+class NewPerson {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    greet() {
+        return `Hello, ${this.name}`;
+    }
+}
+
+// Both work the same way
+const old = new OldPerson("John", 25);
+const newer = new NewPerson("John", 25);
+
+console.log(old.greet()); // "Hello, John"
+console.log(newer.greet()); // "Hello, John"
+                    </div>
+                </div>
+
+                <div id="modules" class="chapter tab-content">
+                    <h2>JavaScript Modules</h2>
+                    <p>Modules help organize code into reusable, maintainable pieces.</p>
+
+                    <h3>Exporting from Modules</h3>
+                    <div class="code-block">
+// math.js - exporting module
+
+// Named exports
+export const PI = 3.14159;
+
+export function add(a, b) {
+    return a + b;
+}
+
+export function multiply(a, b) {
+    return a * b;
+}
+
+// Export list
+const secret = "shhh";
+const internal = "private";
+
+export { secret as defaultSecret, internal };
+
+// Default export (one per module)
+export default class Calculator {
+    constructor() {
+        this.result = 0;
+    }
+    
+    add(value) {
+        this.result += value;
+        return this;
+    }
+    
+    getResult() {
+        return this.result;
+    }
+}
+
+// Exporting existing variables
+const apiKey = "12345";
+const baseUrl = "https://api.example.com";
+
+export { apiKey, baseUrl };
+                    </div>
+
+                    <h3>Importing Modules</h3>
+                    <div class="code-block">
+// app.js - importing module
+
+// Import default export
+import Calculator from './math.js';
+
+// Import named exports
+import { PI, add, multiply } from './math.js';
+
+// Import with aliases
+import { defaultSecret as secret, internal } from './math.js';
+
+// Import everything
+import * as math from './math.js';
+
+// Import default and named
+import Calculator, { PI, add } from './math.js';
+
+// Using imports
+const calc = new Calculator();
+console.log(calc.add(5).getResult()); // 5
+
+console.log(PI); // 3.14159
+console.log(add(2, 3)); // 5
+console.log(math.multiply(4, 5)); // 20
+                    </div>
+
+                    <div class="module-demo">
+                        <div class="module-box">
+                            <h4>Export Examples</h4>
+                            <div class="code-block">
+// utils.js
+export const version = "1.0.0";
+
+export function formatDate(date) {
+    return date.toISOString();
+}
+
+export default class Logger {
+    log(message) {
+        console.log(`[LOG]: ${message}`);
+    }
+}
+                            </div>
+                        </div>
+                        <div class="module-box">
+                            <h4>Import Examples</h4>
+                            <div class="code-block">
+// app.js
+import Logger, { version, formatDate } from './utils.js';
+
+const logger = new Logger();
+logger.log(`App version: ${version}`);
+
+const today = new Date();
+console.log(formatDate(today));
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Dynamic Imports</h3>
+                    <div class="code-block">
+// Static import (at top of file)
+import { heavyFunction } from './heavy-module.js';
+
+// Dynamic import (load on demand)
+async function loadHeavyModule() {
+    try {
+        const heavyModule = await import('./heavy-module.js');
+        heavyModule.heavyFunction();
+    } catch (error) {
+        console.error('Failed to load module:', error);
+    }
+}
+
+// Conditional loading
+if (userNeedsFeature) {
+    import('./feature-module.js')
+        .then(module => {
+            module.initialize();
+        });
+}
+
+// Multiple dynamic imports
+async function loadMultipleModules() {
+    const [module1, module2] = await Promise.all([
+        import('./module1.js'),
+        import('./module2.js')
+    ]);
+    
+    module1.init();
+    module2.init();
+}
+                    </div>
+
+                    <div class="interactive-demo">
+                        <h4>Module Demo</h4>
+                        <div class="demo-controls">
+                            <button onclick="demoModule('named')">Named Exports</button>
+                            <button onclick="demoModule('default')">Default Export</button>
+                            <button onclick="demoModule('dynamic')">Dynamic Import</button>
+                            <button onclick="demoModule('all')">Import All</button>
+                        </div>
+                        <div id="moduleOutput" class="preview" style="min-height: 120px;">
+                            Click buttons to see module examples
+                        </div>
+                    </div>
+                </div>
+
+                <div id="advanced" class="chapter tab-content">
+                    <h2>Advanced Modern Features</h2>
+                    <p>Powerful features for more expressive and efficient code.</p>
+
+                    <h3>Destructuring Assignment</h3>
+                    <div class="code-block">
+// Array destructuring
+const colors = ["red", "green", "blue"];
+const [firstColor, secondColor] = colors;
+console.log(firstColor); // "red"
+console.log(secondColor); // "green"
+
+// Skipping elements
+const [,, thirdColor] = colors;
+console.log(thirdColor); // "blue"
+
+// Default values
+const [primary = "red"] = [];
+console.log(primary); // "red"
+
+// Rest pattern
+const [first, ...rest] = colors;
+console.log(rest); // ["green", "blue"]
+
+// Object destructuring
+const person = { name: "Alice", age: 30, city: "Paris" };
+const { name, age } = person;
+console.log(name); // "Alice"
+console.log(age); // 30
+
+// Renaming variables
+const { name: personName, age: personAge } = person;
+
+// Default values
+const { country = "France" } = person;
+
+// Nested destructuring
+const user = {
+    id: 1,
+    profile: {
+        firstName: "John",
+        address: {
+            city: "Boston",
+            zip: "02101"
+        }
+    }
+};
+
+const { profile: { firstName, address: { city } } } = user;
+console.log(firstName); // "John"
+console.log(city); // "Boston"
+                    </div>
+
+                    <h3>Spread and Rest Operators</h3>
+                    <div class="code-block">
+// Spread with arrays
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const combined = [...arr1, ...arr2]; // [1, 2, 3, 4, 5, 6]
+
+// Copy array
+const copy = [...arr1]; // [1, 2, 3]
+
+// Spread with objects
+const obj1 = { a: 1, b: 2 };
+const obj2 = { c: 3, d: 4 };
+const merged = { ...obj1, ...obj2 }; // { a: 1, b: 2, c: 3, d: 4 }
+
+// Override properties
+const updated = { ...obj1, b: 20 }; // { a: 1, b: 20 }
+
+// Rest parameters
+function sum(...numbers) {
+    return numbers.reduce((total, num) => total + num, 0);
+}
+console.log(sum(1, 2, 3, 4)); // 10
+
+// Rest with destructuring
+const [first, second, ...others] = [1, 2, 3, 4, 5];
+console.log(others); // [3, 4, 5]
+
+const { a, ...rest } = { a: 1, b: 2, c: 3 };
+console.log(rest); // { b: 2, c: 3 }
+                    </div>
+
+                    <div class="demo-area">
+                        <h4>Destructuring & Spread Demo</h4>
+                        <div class="demo-controls">
+                            <button onclick="demoAdvanced('array-destructure')">Array Destructure</button>
+                            <button onclick="demoAdvanced('object-destructure')">Object Destructure</button>
+                            <button onclick="demoAdvanced('spread')">Spread Operator</button>
+                            <button onclick="demoAdvanced('rest')">Rest Parameters</button>
+                        </div>
+                        <div id="advancedOutput" class="preview" style="min-height: 120px;">
+                            Click buttons to see advanced examples
+                        </div>
+                    </div>
+
+                    <h3>Optional Chaining and Nullish Coalescing</h3>
+                    <div class="code-block">
+// Optional chaining (?.)
+const user = {
+    profile: {
+        name: "Alice",
+        address: {
+            city: "Paris"
+        }
+    }
+};
+
+// Safe property access
+console.log(user?.profile?.name); // "Alice"
+console.log(user?.profile?.age); // undefined (no error)
+
+// With function calls
+const apiResponse = { data: null };
+console.log(apiResponse.data?.getUser?.()); // undefined
+
+// With arrays
+const arr = null;
+console.log(arr?.[0]); // undefined
+
+// Nullish coalescing (??)
+const settings = {
+    theme: null,
+    language: '',
+    itemsPerPage: 0
+};
+
+// Only use default if null or undefined
+const theme = settings.theme ?? "dark"; // "dark"
+const language = settings.language ?? "en"; // "" (empty string is not nullish)
+const items = settings.itemsPerPage ?? 10; // 0 (0 is not nullish)
+
+// Combined usage
+const city = user?.profile?.address?.city ?? "Unknown";
+console.log(city); // "Paris" or "Unknown" if any part is missing
+                    </div>
+
+                    <h3>Modern Array and Object Methods</h3>
+                    <div class="code-block">
+// Array.prototype.flat() and flatMap()
+const nested = [1, [2, [3, [4]]]];
+console.log(nested.flat()); // [1, 2, [3, [4]]]
+console.log(nested.flat(2)); // [1, 2, 3, [4]]
+console.log(nested.flat(Infinity)); // [1, 2, 3, 4]
+
+const sentences = ["Hello world", "Modern JavaScript"];
+const words = sentences.flatMap(sentence => sentence.split(' '));
+// ["Hello", "world", "Modern", "JavaScript"]
+
+// Object.fromEntries()
+const entries = [['name', 'Alice'], ['age', 30]];
+const obj = Object.fromEntries(entries);
+// { name: "Alice", age: 30 }
+
+// String.prototype.padStart() and padEnd()
+console.log('5'.padStart(3, '0')); // "005"
+console.log('hi'.padEnd(5, '!')); // "hi!!!"
+
+// Promise.finally()
+fetch('/api/data')
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error(error))
+    .finally(() => {
+        console.log('Request completed');
+    });
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button id="prev-chapter" class="secondary">← Previous: Async JavaScript</button>
+                    <button id="next-chapter">Next: JavaScript Projects →</button>
+                </div>
+            </section>
+
+            <section class="practice-section">
+                <h2>Modern JavaScript Playground</h2>
+                <p>Practice modern JavaScript features with real examples!</p>
+                
+                <div class="practice-area">
+                    <div class="editor-container">
+                        <div class="editor-header">
+                            <span>JavaScript Editor</span>
+                            <span>Use modern ES6+ features</span>
+                        </div>
+                        <textarea id="js-editor">// Modern JavaScript Practice Area
+
+// Example 1: Arrow Functions and Template Literals
+const users = [
+    { name: "Alice", age: 30, city: "New York" },
+    { name: "Bob", age: 25, city: "London" },
+    { name: "Charlie", age: 35, city: "Paris" }
+];
+
+// Arrow function with template literal
+const createGreeting = user => {
+    return `Hello, ${user.name}! You're ${user.age} years old and live in ${user.city}.`;
+};
+
+users.forEach(user => {
+    console.log(createGreeting(user));
+});
+
+// Example 2: Destructuring and Spread Operator
+const product = {
+    id: 1,
+    name: "Laptop",
+    price: 999.99,
+    category: "Electronics",
+    specifications: {
+        cpu: "Intel i7",
+        ram: "16GB",
+        storage: "512GB SSD"
+    }
+};
+
+// Object destructuring
+const { name, price, specifications: { cpu, ram } } = product;
+console.log(`Product: ${name}, Price: $${price}`);
+console.log(`Specs: ${cpu}, ${ram}`);
+
+// Spread operator for copying and merging
+const productCopy = { ...product };
+const updatedProduct = {
+    ...product,
+    price: 899.99,
+    onSale: true
+};
+
+console.log("Original:", product.price);
+console.log("Updated:", updatedProduct.price);
+console.log("On sale:", updatedProduct.onSale);
+
+// Example 3: Enhanced Object Literals
+const createUser = (name, email, age) => {
+    // Shorthand property names
+    return {
+        name,
+        email,
+        age,
+        
+        // Shorthand method
+        getInfo() {
+            return `${this.name} (${this.email}) - ${this.age} years old`;
+        },
+        
+        // Computed property name
+        [`is${age >= 18 ? 'Adult' : 'Minor'}`]: true
+    };
+};
+
+const user = createUser("John", "john@example.com", 25);
+console.log(user.getInfo());
+console.log("Is adult:", user.isAdult);
+
+// Example 4: Classes and Inheritance
+class Vehicle {
+    constructor(brand, model, year) {
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+    }
+    
+    getInfo() {
+        return `${this.year} ${this.brand} ${this.model}`;
+    }
+    
+    static compareYears(vehicle1, vehicle2) {
+        return vehicle1.year - vehicle2.year;
+    }
+}
+
+class Car extends Vehicle {
+    constructor(brand, model, year, doors) {
+        super(brand, model, year);
+        this.doors = doors;
+    }
+    
+    // Override parent method
+    getInfo() {
+        return `${super.getInfo()} with ${this.doors} doors`;
+    }
+}
+
+// Using classes
+const myCar = new Car("Toyota", "Camry", 2023, 4);
+console.log(myCar.getInfo());
+
+const oldCar = new Car("Honda", "Civic", 2018, 2);
+console.log(Vehicle.compareYears(myCar, oldCar)); // 5
+
+// Example 5: Modern Array Methods
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// Using modern array methods
+const result = numbers
+    .filter(num => num % 2 === 0) // Even numbers
+    .map(num => num * 2) // Double them
+    .reduce((sum, num) => sum + num, 0); // Sum them up
+
+console.log("Sum of doubled even numbers:", result);
+
+// flatMap example
+const sentences = [
+    "JavaScript is awesome",
+    "Modern features rock",
+    "Practice makes perfect"
+];
+
+const allWords = sentences.flatMap(sentence => 
+    sentence.split(' ').map(word => word.toLowerCase())
+);
+
+console.log("All words:", allWords);
+
+// Example 6: Optional Chaining and Nullish Coalescing
+const company = {
+    name: "Tech Corp",
+    employees: [
+        {
+            name: "Alice",
+            department: {
+                name: "Engineering",
+                manager: {
+                    name: "Bob",
+                    contact: {
+                        email: "bob@company.com"
+                    }
+                }
+            }
+        }
+    ]
+};
+
+// Safe access with optional chaining
+const managerEmail = company.employees?.[0]?.department?.manager?.contact?.email;
+console.log("Manager email:", managerEmail ?? "Not available");
+
+const missingEmail = company.employees?.[1]?.department?.manager?.contact?.email;
+console.log("Missing email:", missingEmail ?? "Not available");
+
+// Example 7: Modules Simulation (in single file)
+// In real projects, these would be separate files
+
+// Simulating math.js module
+const mathModule = {
+    PI: 3.14159,
+    add: (a, b) => a + b,
+    multiply: (a, b) => a * b,
+    Calculator: class {
+        constructor() {
+            this.result = 0;
+        }
+        add(value) {
+            this.result += value;
+            return this;
+        }
+        getResult() {
+            return this.result;
+        }
+    }
+};
+
+// Simulating import
+const { PI, add, multiply, Calculator } = mathModule;
+
+console.log("PI:", PI);
+console.log("2 + 3 =", add(2, 3));
+console.log("4 * 5 =", multiply(4, 5));
+
+const calc = new Calculator();
+calc.add(10).add(5);
+console.log("Calculator result:", calc.getResult());
+
+// Try your own modern JavaScript code below!
+// Practice using let/const, arrow functions, template literals, etc.
+
+const myModernFunction = (items) => {
+    return items
+        ?.map(item => item?.name ?? "Unknown")
+        ?.filter(name => name.length > 0)
+        ?.join(", ");
+};
+
+const testItems = [
+    { name: "Item 1" },
+    { name: "" },
+    { name: "Item 3" },
+    { id: 4 } // No name property
+];
+
+console.log("Processed items:", myModernFunction(testItems));</textarea>
+                    </div>
+                    
+                    <button id="run-btn">Run Code</button>
+                    <button id="reset-btn" class="secondary">Reset Code</button>
+                    <button id="clear-btn">Clear Output</button>
+                    
+                    <h3>Console Output:</h3>
+                    <div class="preview" id="output">
+                        // Output will appear here after running your code
+                    </div>
+                </div>
+
+                <div class="example">
+                    <h3>Practice Exercises:</h3>
+                    <ul>
+                        <li>Convert old function syntax to arrow functions</li>
+                        <li>Refactor code to use destructuring and spread operator</li>
+                        <li>Create a class hierarchy for different vehicle types</li>
+                        <li>Implement a module system for a small application</li>
+                        <li>Use modern array methods to solve data transformation problems</li>
+                    </ul>
+                </div>
+
+                <div class="note">
+                    <strong>Modern JavaScript Tip:</strong> Use <span class="js-keyword">const</span> by default and only use <span class="js-keyword">let</span> when you need to reassign variables. Avoid <span class="js-keyword">var</span> in modern code.
+                </div>
+
+                <div class="warning">
+                    <strong>Browser Compatibility:</strong> While modern JavaScript features are well-supported in current browsers, always check compatibility if you need to support older browsers. Use transpilers like Babel for production code.
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>Modern JavaScript Features Tutorial - Part 5 &copy; 2023 | Write cleaner, more powerful code!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Arrow Function Demo
+        function demoArrow(type) {
+            const output = document.getElementById('arrowOutput');
+            let content = '';
+            
+            switch(type) {
+                case 'basic':
+                    const add = (a, b) => a + b;
+                    const square = x => x * x;
+                    
+                    content = `const add = (a, b) => a + b;\n`;
+                    content += `const square = x => x * x;\n\n`;
+                    content += `add(2, 3) = ${add(2, 3)}\n`;
+                    content += `square(5) = ${square(5)}`;
+                    break;
+                    
+                case 'object':
+                    const createUser = (name, age) => ({ name, age });
+                    
+                    content = `const createUser = (name, age) => ({ name, age });\n\n`;
+                    content += `createUser("Alice", 30) = ${JSON.stringify(createUser("Alice", 30))}`;
+                    break;
+                    
+                case 'this':
+                    const obj = {
+                        value: 42,
+                        traditional: function() {
+                            return `Traditional this.value: ${this.value}`;
+                        },
+                        arrow: () => {
+                            return `Arrow this.value: ${this.value}`;
+                        }
+                    };
+                    
+                    content = `const obj = {\n`;
+                    content += `  value: 42,\n`;
+                    content += `  traditional: function() { return this.value; },\n`;
+                    content += `  arrow: () => this.value\n`;
+                    content += `};\n\n`;
+                    content += `obj.traditional() = ${obj.traditional()}\n`;
+                    content += `obj.arrow() = ${obj.arrow()}`;
+                    break;
+                    
+                case 'array':
+                    const numbers = [1, 2, 3, 4, 5];
+                    const doubled = numbers.map(n => n * 2);
+                    const evens = numbers.filter(n => n % 2 === 0);
+                    
+                    content = `const numbers = [1, 2, 3, 4, 5];\n\n`;
+                    content += `numbers.map(n => n * 2) = [${doubled}]\n`;
+                    content += `numbers.filter(n => n % 2 === 0) = [${evens}]`;
+                    break;
+            }
+            
+            output.textContent = content;
+        }
+
+        // Class Demo
+        function demoClass(type) {
+            const output = document.getElementById('classOutput');
+            let content = '';
+            
+            switch(type) {
+                case 'basic':
+                    class Person {
+                        constructor(name, age) {
+                            this.name = name;
+                            this.age = age;
+                        }
+                        
+                        greet() {
+                            return `Hello, I'm ${this.name}`;
+                        }
+                    }
+                    
+                    const person = new Person("Alice", 30);
+                    
+                    content = `class Person {\n`;
+                    content += `  constructor(name, age) {\n`;
+                    content += `    this.name = name;\n`;
+                    content += `    this.age = age;\n`;
+                    content += `  }\n\n`;
+                    content += `  greet() {\n`;
+                    content += `    return "Hello, I'm " + this.name;\n`;
+                    content += `  }\n`;
+                    content += `}\n\n`;
+                    content += `const person = new Person("Alice", 30);\n`;
+                    content += `person.greet() = "${person.greet()}"`;
+                    break;
+                    
+                case 'inheritance':
+                    class Animal {
+                        constructor(name) {
+                            this.name = name;
+                        }
+                        
+                        speak() {
+                            return `${this.name} makes a sound`;
+                        }
+                    }
+                    
+                    class Dog extends Animal {
+                        constructor(name, breed) {
+                            super(name);
+                            this.breed = breed;
+                        }
+                        
+                        speak() {
+                            return `${this.name} barks!`;
+                        }
+                    }
+                    
+                    const dog = new Dog("Rex", "Golden");
+                    
+                    content = `class Dog extends Animal {\n`;
+                    content += `  constructor(name, breed) {\n`;
+                    content += `    super(name);\n`;
+                    content += `    this.breed = breed;\n`;
+                    content += `  }\n\n`;
+                    content += `  speak() {\n`;
+                    content += `    return this.name + " barks!";\n`;
+                    content += `  }\n`;
+                    content += `}\n\n`;
+                    content += `const dog = new Dog("Rex", "Golden");\n`;
+                    content += `dog.speak() = "${dog.speak()}"\n`;
+                    content += `dog instanceof Animal = ${dog instanceof Animal}`;
+                    break;
+                    
+                case 'static':
+                    class MathUtils {
+                        static PI = 3.14159;
+                        
+                        static circleArea(radius) {
+                            return this.PI * radius * radius;
+                        }
+                    }
+                    
+                    content = `class MathUtils {\n`;
+                    content += `  static PI = 3.14159;\n\n`;
+                    content += `  static circleArea(radius) {\n`;
+                    content += `    return this.PI * radius * radius;\n`;
+                    content += `  }\n`;
+                    content += `}\n\n`;
+                    content += `MathUtils.PI = ${MathUtils.PI}\n`;
+                    content += `MathUtils.circleArea(5) = ${MathUtils.circleArea(5)}`;
+                    break;
+                    
+                case 'getset':
+                    class Temperature {
+                        constructor(celsius) {
+                            this.celsius = celsius;
+                        }
+                        
+                        get fahrenheit() {
+                            return this.celsius * 1.8 + 32;
+                        }
+                        
+                        set fahrenheit(value) {
+                            this.celsius = (value - 32) / 1.8;
+                        }
+                    }
+                    
+                    const temp = new Temperature(25);
+                    
+                    content = `class Temperature {\n`;
+                    content += `  constructor(celsius) {\n`;
+                    content += `    this.celsius = celsius;\n`;
+                    content += `  }\n\n`;
+                    content += `  get fahrenheit() {\n`;
+                    content += `    return this.celsius * 1.8 + 32;\n`;
+                    content += `  }\n\n`;
+                    content += `  set fahrenheit(value) {\n`;
+                    content += `    this.celsius = (value - 32) / 1.8;\n`;
+                    content += `  }\n`;
+                    content += `}\n\n`;
+                    content += `const temp = new Temperature(25);\n`;
+                    content += `temp.fahrenheit = ${temp.fahrenheit}\n`;
+                    content += `temp.fahrenheit = 100;\n`;
+                    content += `temp.celsius = ${(100 - 32) / 1.8}`;
+                    break;
+            }
+            
+            output.textContent = content;
+        }
+
+        // Module Demo
+        function demoModule(type) {
+            const output = document.getElementById('moduleOutput');
+            let content = '';
+            
+            // Simulate modules in a single file
+            const mathModule = {
+                PI: 3.14159,
+                add: (a, b) => a + b,
+                multiply: (a, b) => a * b,
+                default: class Calculator {
+                    constructor() {
+                        this.result = 0;
+                    }
+                    add(value) {
+                        this.result += value;
+                        return this;
+                    }
+                    getResult() {
+                        return this.result;
+                    }
+                }
+            };
+            
+            switch(type) {
+                case 'named':
+                    const { PI, add, multiply } = mathModule;
+                    
+                    content = `// Export\n`;
+                    content += `export const PI = 3.14159;\n`;
+                    content += `export function add(a, b) { return a + b; }\n\n`;
+                    content += `// Import\n`;
+                    content += `import { PI, add } from './math.js';\n\n`;
+                    content += `PI = ${PI}\n`;
+                    content += `add(2, 3) = ${add(2, 3)}`;
+                    break;
+                    
+                case 'default':
+                    const Calculator = mathModule.default;
+                    const calc = new Calculator();
+                    
+                    content = `// Export\n`;
+                    content += `export default class Calculator { ... }\n\n`;
+                    content += `// Import\n`;
+                    content += `import Calculator from './math.js';\n\n`;
+                    content += `const calc = new Calculator();\n`;
+                    content += `calc.add(5).add(3).getResult() = ${calc.add(5).add(3).getResult()}`;
+                    break;
+                    
+                case 'dynamic':
+                    content = `// Dynamic import\n`;
+                    content += `async function loadModule() {\n`;
+                    content += `  const module = await import('./math.js');\n`;
+                    content += `  console.log(module.PI);\n`;
+                    content += `}\n\n`;
+                    content += `// Simulating dynamic import\n`;
+                    content += `const module = { PI: 3.14159, add: (a, b) => a + b };\n`;
+                    content += `module.PI = ${mathModule.PI}\n`;
+                    content += `module.add(4, 5) = ${mathModule.add(4, 5)}`;
+                    break;
+                    
+                case 'all':
+                    const allMath = mathModule;
+                    
+                    content = `// Import all\n`;
+                    content += `import * as math from './math.js';\n\n`;
+                    content += `math.PI = ${allMath.PI}\n`;
+                    content += `math.add(1, 2) = ${allMath.add(1, 2)}\n`;
+                    content += `math.multiply(3, 4) = ${allMath.multiply(3, 4)}`;
+                    break;
+            }
+            
+            output.textContent = content;
+        }
+
+        // Advanced Features Demo
+        function demoAdvanced(type) {
+            const output = document.getElementById('advancedOutput');
+            let content = '';
+            
+            switch(type) {
+                case 'array-destructure':
+                    const colors = ["red", "green", "blue", "yellow"];
+                    const [first, second, ...rest] = colors;
+                    
+                    content = `const colors = ["red", "green", "blue", "yellow"];\n`;
+                    content += `const [first, second, ...rest] = colors;\n\n`;
+                    content += `first = "${first}"\n`;
+                    content += `second = "${second}"\n`;
+                    content += `rest = [${rest.map(c => `"${c}"`).join(", ")}]`;
+                    break;
+                    
+                case 'object-destructure':
+                    const user = { 
+                        name: "Alice", 
+                        age: 30, 
+                        address: { 
+                            city: "Paris", 
+                            country: "France" 
+                        } 
+                    };
+                    const { name, age, address: { city } } = user;
+                    
+                    content = `const user = { name: "Alice", age: 30, ... };\n`;
+                    content += `const { name, age, address: { city } } = user;\n\n`;
+                    content += `name = "${name}"\n`;
+                    content += `age = ${age}\n`;
+                    content += `city = "${city}"`;
+                    break;
+                    
+                case 'spread':
+                    const arr1 = [1, 2, 3];
+                    const arr2 = [4, 5, 6];
+                    const combined = [...arr1, ...arr2];
+                    
+                    const obj1 = { a: 1, b: 2 };
+                    const obj2 = { c: 3, d: 4 };
+                    const merged = { ...obj1, ...obj2, b: 20 };
+                    
+                    content = `// Array spread\n`;
+                    content += `const combined = [...[1,2,3], ...[4,5,6]];\n`;
+                    content += `combined = [${combined}]\n\n`;
+                    content += `// Object spread\n`;
+                    content += `const merged = { ...{a:1,b:2}, ...{c:3,d:4}, b:20 };\n`;
+                    content += `merged = ${JSON.stringify(merged)}`;
+                    break;
+                    
+                case 'rest':
+                    function processUser(first, ...others) {
+                        return {
+                            firstUser: first,
+                            otherUsers: others,
+                            totalUsers: others.length + 1
+                        };
+                    }
+                    
+                    const result = processUser("Alice", "Bob", "Charlie", "Diana");
+                    
+                    content = `function processUser(first, ...others) {\n`;
+                    content += `  return {\n`;
+                    content += `    firstUser: first,\n`;
+                    content += `    otherUsers: others,\n`;
+                    content += `    totalUsers: others.length + 1\n`;
+                    content += `  };\n`;
+                    content += `}\n\n`;
+                    content += `processUser("Alice", "Bob", "Charlie", "Diana") =\n`;
+                    content += `${JSON.stringify(result, null, 2)}`;
+                    break;
+            }
+            
+            output.textContent = content;
+        }
+
+        // Run JavaScript code
+        document.getElementById('run-btn').addEventListener('click', function() {
+            const jsCode = document.getElementById('js-editor').value;
+            const outputElement = document.getElementById('output');
+            
+            // Clear previous output
+            outputElement.innerHTML = '';
+            
+            try {
+                // Capture console.log output
+                const originalLog = console.log;
+                let logOutput = '';
+                
+                console.log = function(...args) {
+                    logOutput += args.map(arg => {
+                        if (typeof arg === 'object') {
+                            return JSON.stringify(arg, null, 2);
+                        }
+                        return String(arg);
+                    }).join(' ') + '\n';
+                    originalLog.apply(console, args);
+                };
+                
+                // Execute the code
+                eval(jsCode);
+                
+                // Restore original console.log
+                console.log = originalLog;
+                
+                // Display the output
+                outputElement.textContent = logOutput || 'Code executed successfully (no output)';
+            } catch (error) {
+                outputElement.innerHTML = `<span style="color: #fc8181;">Error: ${error.message}</span>`;
+            }
+        });
+
+        // Reset to example code
+        document.getElementById('reset-btn').addEventListener('click', function() {
+            document.getElementById('js-editor').value = `// Modern JavaScript Practice Area
+
+// Example 1: Arrow Functions and Template Literals
+const users = [
+    { name: "Alice", age: 30, city: "New York" },
+    { name: "Bob", age: 25, city: "London" },
+    { name: "Charlie", age: 35, city: "Paris" }
+];
+
+// Arrow function with template literal
+const createGreeting = user => {
+    return \`Hello, \${user.name}! You're \${user.age} years old and live in \${user.city}.\`;
+};
+
+users.forEach(user => {
+    console.log(createGreeting(user));
+});
+
+// Example 2: Destructuring and Spread Operator
+const product = {
+    id: 1,
+    name: "Laptop",
+    price: 999.99,
+    category: "Electronics",
+    specifications: {
+        cpu: "Intel i7",
+        ram: "16GB",
+        storage: "512GB SSD"
+    }
+};
+
+// Object destructuring
+const { name, price, specifications: { cpu, ram } } = product;
+console.log(\`Product: \${name}, Price: $\${price}\`);
+console.log(\`Specs: \${cpu}, \${ram}\`);
+
+// Spread operator for copying and merging
+const productCopy = { ...product };
+const updatedProduct = {
+    ...product,
+    price: 899.99,
+    onSale: true
+};
+
+console.log("Original:", product.price);
+console.log("Updated:", updatedProduct.price);
+console.log("On sale:", updatedProduct.onSale);
+
+// Example 3: Enhanced Object Literals
+const createUser = (name, email, age) => {
+    // Shorthand property names
+    return {
+        name,
+        email,
+        age,
+        
+        // Shorthand method
+        getInfo() {
+            return \`\${this.name} (\${this.email}) - \${this.age} years old\`;
+        },
+        
+        // Computed property name
+        [\`is\${age >= 18 ? 'Adult' : 'Minor'}\`]: true
+    };
+};
+
+const user = createUser("John", "john@example.com", 25);
+console.log(user.getInfo());
+console.log("Is adult:", user.isAdult);
+
+// Example 4: Classes and Inheritance
+class Vehicle {
+    constructor(brand, model, year) {
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+    }
+    
+    getInfo() {
+        return \`\${this.year} \${this.brand} \${this.model}\`;
+    }
+    
+    static compareYears(vehicle1, vehicle2) {
+        return vehicle1.year - vehicle2.year;
+    }
+}
+
+class Car extends Vehicle {
+    constructor(brand, model, year, doors) {
+        super(brand, model, year);
+        this.doors = doors;
+    }
+    
+    // Override parent method
+    getInfo() {
+        return \`\${super.getInfo()} with \${this.doors} doors\`;
+    }
+}
+
+// Using classes
+const myCar = new Car("Toyota", "Camry", 2023, 4);
+console.log(myCar.getInfo());
+
+const oldCar = new Car("Honda", "Civic", 2018, 2);
+console.log(Vehicle.compareYears(myCar, oldCar)); // 5
+
+// Example 5: Modern Array Methods
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// Using modern array methods
+const result = numbers
+    .filter(num => num % 2 === 0) // Even numbers
+    .map(num => num * 2) // Double them
+    .reduce((sum, num) => sum + num, 0); // Sum them up
+
+console.log("Sum of doubled even numbers:", result);
+
+// flatMap example
+const sentences = [
+    "JavaScript is awesome",
+    "Modern features rock",
+    "Practice makes perfect"
+];
+
+const allWords = sentences.flatMap(sentence => 
+    sentence.split(' ').map(word => word.toLowerCase())
+);
+
+console.log("All words:", allWords);
+
+// Example 6: Optional Chaining and Nullish Coalescing
+const company = {
+    name: "Tech Corp",
+    employees: [
+        {
+            name: "Alice",
+            department: {
+                name: "Engineering",
+                manager: {
+                    name: "Bob",
+                    contact: {
+                        email: "bob@company.com"
+                    }
+                }
+            }
+        }
+    ]
+};
+
+// Safe access with optional chaining
+const managerEmail = company.employees?.[0]?.department?.manager?.contact?.email;
+console.log("Manager email:", managerEmail ?? "Not available");
+
+const missingEmail = company.employees?.[1]?.department?.manager?.contact?.email;
+console.log("Missing email:", missingEmail ?? "Not available");
+
+// Example 7: Modules Simulation (in single file)
+// In real projects, these would be separate files
+
+// Simulating math.js module
+const mathModule = {
+    PI: 3.14159,
+    add: (a, b) => a + b,
+    multiply: (a, b) => a * b,
+    Calculator: class {
+        constructor() {
+            this.result = 0;
+        }
+        add(value) {
+            this.result += value;
+            return this;
+        }
+        getResult() {
+            return this.result;
+        }
+    }
+};
+
+// Simulating import
+const { PI, add, multiply, Calculator } = mathModule;
+
+console.log("PI:", PI);
+console.log("2 + 3 =", add(2, 3));
+console.log("4 * 5 =", multiply(4, 5));
+
+const calc = new Calculator();
+calc.add(10).add(5);
+console.log("Calculator result:", calc.getResult());
+
+// Try your own modern JavaScript code below!
+// Practice using let/const, arrow functions, template literals, etc.
+
+const myModernFunction = (items) => {
+    return items
+        ?.map(item => item?.name ?? "Unknown")
+        ?.filter(name => name.length > 0)
+        ?.join(", ");
+};
+
+const testItems = [
+    { name: "Item 1" },
+    { name: "" },
+    { name: "Item 3" },
+    { id: 4 } // No name property
+];
+
+console.log("Processed items:", myModernFunction(testItems));`;
+            
+            // Clear output
+            document.getElementById('output').textContent = '// Output will appear here after running your code';
+        });
+
+        // Clear output
+        document.getElementById('clear-btn').addEventListener('click', function() {
+            document.getElementById('output').textContent = '// Output cleared';
+        });
+
+        // Navigation buttons
+        document.getElementById('next-chapter').addEventListener('click', function() {
+            alert('Congratulations! You have completed the JavaScript tutorial series! 🎉\n\nYou can now build real projects with your JavaScript knowledge.');
+        });
+
+        document.getElementById('prev-chapter').addEventListener('click', function() {
+            alert('Returning to Asynchronous JavaScript...');
+        });
+
+        // Initialize with example output
+        document.getElementById('output').textContent = `Hello, Alice! You're 30 years old and live in New York.
+Hello, Bob! You're 25 years old and live in London.
+Hello, Charlie! You're 35 years old and live in Paris.
+Product: Laptop, Price: $999.99
+Specs: Intel i7, 16GB
+Original: 999.99
+Updated: 899.99
+On sale: true
+John (john@example.com) - 25 years old
+Is adult: true
+2023 Toyota Camry with 4 doors
+5
+Sum of doubled even numbers: 60
+All words: javascript,is,awesome,modern,features,rock,practice,makes,perfect
+Manager email: bob@company.com
+Missing email: Not available
+PI: 3.14159
+2 + 3 = 5
+4 * 5 = 20
+Calculator result: 15
+Processed items: Item 1, Item 3`;
+    </script>
+</body>
+</html>

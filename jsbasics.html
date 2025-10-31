@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn JavaScript - Programming Fundamentals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 968px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .theory-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .practice-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #764ba2;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #667eea;
+            margin: 25px 0 15px 0;
+        }
+
+        h4 {
+            color: #2d3748;
+            margin: 20px 0 10px 0;
+        }
+
+        .chapter {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .chapter:last-child {
+            border-bottom: none;
+        }
+
+        .js-keyword {
+            display: inline-block;
+            background: #764ba2;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 0 2px;
+            font-size: 0.9em;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            overflow-x: auto;
+            border-left: 4px solid #667eea;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .example {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #764ba2;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .practice-area {
+            margin-top: 25px;
+        }
+
+        .editor-container {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .editor-header {
+            background: #2d3748;
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 15px;
+            border: none;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            resize: vertical;
+            font-size: 14px;
+            background: #f8f9fa;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button.secondary {
+            background: linear-gradient(135deg, #48bb78 0%, #2f855a 100%);
+        }
+
+        .preview {
+            margin-top: 20px;
+            padding: 20px;
+            background: #1a202c;
+            color: #e2e8f0;
+            border-radius: 8px;
+            min-height: 200px;
+            border-left: 4px solid #667eea;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 25px;
+            opacity: 0.9;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background: #e2e8f0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Demo Styles */
+        .demo-area {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .demo-controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .demo-controls button {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        .interactive-demo {
+            background: #edf2f7;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .variable-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .variable-box {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+            text-align: center;
+        }
+
+        .output-line {
+            margin: 5px 0;
+            padding: 5px;
+            border-bottom: 1px solid #2d3748;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Learn JavaScript</h1>
+            <p class="subtitle">Start your programming journey with interactive examples and real-time coding</p>
+        </header>
+
+        <div class="content-grid">
+            <section class="theory-section">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="basics">Basics</button>
+                    <button class="tab-button" data-tab="variables">Variables</button>
+                    <button class="tab-button" data-tab="functions">Functions</button>
+                    <button class="tab-button" data-tab="control">Control Flow</button>
+                </div>
+
+                <div id="basics" class="chapter tab-content active">
+                    <h2>JavaScript Basics</h2>
+                    <p>JavaScript is a programming language that adds interactivity to your website.</p>
+
+                    <h3>What Can JavaScript Do?</h3>
+                    <ul>
+                        <li>Manipulate HTML content</li>
+                        <li>Change CSS styles dynamically</li>
+                        <li>Validate form data</li>
+                        <li>Create animations and effects</li>
+                        <li>Handle user interactions</li>
+                        <li>Make API calls</li>
+                    </ul>
+
+                    <h3>Basic Syntax</h3>
+                    <div class="code-block">
+// This is a single-line comment
+
+/*
+This is a
+multi-line comment
+*/
+
+// Statements end with semicolons (optional but recommended)
+console.log("Hello, World!");
+
+// Code blocks use curly braces
+if (true) {
+    console.log("This will run");
+}
+                    </div>
+
+                    <h3>Data Types</h3>
+                    <div class="code-block">
+// Primitive Data Types
+let name = "John";          // String
+let age = 30;               // Number
+let isStudent = true;       // Boolean
+let nothing = null;         // Null
+let notDefined = undefined; // Undefined
+let uniqueId = Symbol("id"); // Symbol
+let bigNumber = 123n;       // BigInt
+
+// Reference Data Types
+let person = {              // Object
+    name: "Alice",
+    age: 25
+};
+
+let colors = ["red", "green", "blue"]; // Array
+
+function greet() {          // Function
+    return "Hello!";
+}
+                    </div>
+
+                    <div class="demo-area">
+                        <h4>Data Type Demo</h4>
+                        <div class="demo-controls">
+                            <button onclick="showDataType('string')">String</button>
+                            <button onclick="showDataType('number')">Number</button>
+                            <button onclick="showDataType('boolean')">Boolean</button>
+                            <button onclick="showDataType('array')">Array</button>
+                            <button onclick="showDataType('object')">Object</button>
+                        </div>
+                        <div id="dataTypeOutput" class="preview" style="min-height: 100px;">
+                            Click buttons to see different data types
+                        </div>
+                    </div>
+                </div>
+
+                <div id="variables" class="chapter tab-content">
+                    <h2>Variables & Constants</h2>
+                    <p>Variables are containers for storing data values.</p>
+
+                    <h3>Variable Declaration</h3>
+                    <div class="code-block">
+// var (function-scoped, older way)
+var oldVariable = "I'm old school";
+
+// let (block-scoped, modern)
+let changeable = "I can change";
+changeable = "Now I'm different";
+
+// const (block-scoped, cannot be reassigned)
+const constantValue = "I cannot change";
+// constantValue = "This would cause an error";
+
+// Multiple variables
+let firstName = "John", lastName = "Doe", age = 30;
+                    </div>
+
+                    <h3>Variable Naming Rules</h3>
+                    <ul>
+                        <li>Names can contain letters, digits, underscores, and dollar signs</li>
+                        <li>Names must begin with a letter, $, or _</li>
+                        <li>Names are case sensitive (age and Age are different)</li>
+                        <li>Reserved words cannot be used as names</li>
+                    </ul>
+
+                    <div class="example">
+                        <h4>Good vs Bad Variable Names</h4>
+                        <div class="code-block">
+// Good variable names
+let userName = "John";
+let itemCount = 5;
+let isLoggedIn = true;
+
+// Bad variable names
+let u = "John";           // Too vague
+let itmcnt = 5;           // Hard to read
+let log = true;           // Unclear meaning
+                        </div>
+                    </div>
+
+                    <h3>Constants and Scope</h3>
+                    <div class="code-block">
+// Global scope
+const PI = 3.14159;
+
+function calculateArea(radius) {
+    // Function scope
+    let area = PI * radius * radius;
+    return area;
+}
+
+{
+    // Block scope
+    let temporary = "I only exist in this block";
+    console.log(temporary);
+}
+// console.log(temporary); // Error - temporary doesn't exist here
+                    </div>
+
+                    <div class="variable-demo">
+                        <div class="variable-box">
+                            <h4>let</h4>
+                            <p>Block-scoped, can be reassigned</p>
+                        </div>
+                        <div class="variable-box">
+                            <h4>const</h4>
+                            <p>Block-scoped, cannot be reassigned</p>
+                        </div>
+                        <div class="variable-box">
+                            <h4>var</h4>
+                            <p>Function-scoped, older syntax</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="functions" class="chapter tab-content">
+                    <h2>Functions</h2>
+                    <p>Functions are reusable blocks of code that perform specific tasks.</p>
+
+                    <h3>Function Declaration</h3>
+                    <div class="code-block">
+// Function declaration
+function greet(name) {
+    return "Hello, " + name + "!";
+}
+
+// Function expression
+const calculateArea = function(radius) {
+    return Math.PI * radius * radius;
+};
+
+// Arrow function (ES6+)
+const multiply = (a, b) => a * b;
+
+// Calling functions
+console.log(greet("Alice")); // "Hello, Alice!"
+console.log(calculateArea(5)); // 78.5398...
+console.log(multiply(4, 5)); // 20
+                    </div>
+
+                    <h3>Parameters and Arguments</h3>
+                    <div class="code-block">
+// Function with parameters
+function introduce(name, age, city) {
+    return `My name is ${name}, I'm ${age} years old, and I live in ${city}.`;
+}
+
+// Calling with arguments
+console.log(introduce("Bob", 30, "New York"));
+
+// Default parameters
+function createUser(name, role = "user") {
+    return { name: name, role: role };
+}
+
+console.log(createUser("Alice")); // {name: "Alice", role: "user"}
+console.log(createUser("Bob", "admin")); // {name: "Bob", role: "admin"}
+                    </div>
+
+                    <div class="interactive-demo">
+                        <h4>Function Demo</h4>
+                        <div class="demo-controls">
+                            <button onclick="demoFunction('greet')">Greet Function</button>
+                            <button onclick="demoFunction('calculate')">Calculate Function</button>
+                            <button onclick="demoFunction('arrow')">Arrow Function</button>
+                        </div>
+                        <div id="functionOutput" class="preview" style="min-height: 100px;">
+                            Click buttons to see function examples
+                        </div>
+                    </div>
+
+                    <h3>Return Values</h3>
+                    <div class="code-block">
+// Function that returns a value
+function isAdult(age) {
+    if (age >= 18) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// Function without return (returns undefined)
+function sayHello() {
+    console.log("Hello!");
+}
+
+// Multiple return points
+function getGrade(score) {
+    if (score >= 90) return "A";
+    if (score >= 80) return "B";
+    if (score >= 70) return "C";
+    return "F";
+}
+                    </div>
+                </div>
+
+                <div id="control" class="chapter tab-content">
+                    <h2>Control Flow</h2>
+                    <p>Control the flow of your program with conditional statements and loops.</p>
+
+                    <h3>Conditional Statements</h3>
+                    <div class="code-block">
+// if statement
+let temperature = 25;
+
+if (temperature > 30) {
+    console.log("It's hot outside!");
+} else if (temperature > 20) {
+    console.log("The weather is pleasant.");
+} else {
+    console.log("It's cold outside!");
+}
+
+// switch statement
+let day = "Monday";
+
+switch (day) {
+    case "Monday":
+        console.log("Start of the work week");
+        break;
+    case "Friday":
+        console.log("Weekend is coming!");
+        break;
+    default:
+        console.log("It's a regular day");
+}
+
+// Ternary operator
+let age = 20;
+let canVote = age >= 18 ? "Yes" : "No";
+console.log(canVote); // "Yes"
+                    </div>
+
+                    <h3>Loops</h3>
+                    <div class="code-block">
+// for loop
+for (let i = 0; i < 5; i++) {
+    console.log("Iteration: " + i);
+}
+
+// while loop
+let count = 0;
+while (count < 3) {
+    console.log("Count: " + count);
+    count++;
+}
+
+// do-while loop
+let number = 5;
+do {
+    console.log("Number: " + number);
+    number--;
+} while (number > 0);
+
+// for...of loop (arrays)
+const fruits = ["apple", "banana", "orange"];
+for (const fruit of fruits) {
+    console.log(fruit);
+}
+                    </div>
+
+                    <div class="demo-area">
+                        <h4>Loop Demo</h4>
+                        <div class="demo-controls">
+                            <button onclick="demoLoop('for')">For Loop</button>
+                            <button onclick="demoLoop('while')">While Loop</button>
+                            <button onclick="demoLoop('dowhile')">Do-While</button>
+                            <button onclick="demoLoop('forof')">For...Of</button>
+                        </div>
+                        <div id="loopOutput" class="preview" style="min-height: 150px;">
+                            Click buttons to see loop examples
+                        </div>
+                    </div>
+
+                    <h3>Break and Continue</h3>
+                    <div class="code-block">
+// break - exit loop early
+for (let i = 0; i < 10; i++) {
+    if (i === 5) {
+        break; // Exit loop when i is 5
+    }
+    console.log(i); // 0, 1, 2, 3, 4
+}
+
+// continue - skip current iteration
+for (let i = 0; i < 5; i++) {
+    if (i === 2) {
+        continue; // Skip when i is 2
+    }
+    console.log(i); // 0, 1, 3, 4
+}
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button id="prev-chapter" class="secondary">← Previous: Advanced CSS</button>
+                    <button id="next-chapter">Next: JavaScript Arrays →</button>
+                </div>
+            </section>
+
+            <section class="practice-section">
+                <h2>Code Playground</h2>
+                <p>Write and test JavaScript code in real-time!</p>
+                
+                <div class="practice-area">
+                    <div class="editor-container">
+                        <div class="editor-header">
+                            <span>JavaScript Editor</span>
+                            <span>Write your code here</span>
+                        </div>
+                        <textarea id="js-editor">// JavaScript Practice Area
+// Try writing your own code below!
+
+// Example 1: Variables and basic operations
+let firstName = "John";
+let lastName = "Doe";
+let age = 25;
+
+console.log("Name: " + firstName + " " + lastName);
+console.log("Age: " + age);
+
+// Example 2: Simple function
+function calculateRectangleArea(width, height) {
+    return width * height;
+}
+
+let area = calculateRectangleArea(10, 5);
+console.log("Rectangle area: " + area);
+
+// Example 3: Conditional statements
+let temperature = 22;
+
+if (temperature > 30) {
+    console.log("It's a hot day!");
+} else if (temperature > 20) {
+    console.log("The weather is pleasant.");
+} else {
+    console.log("It's a bit chilly.");
+}
+
+// Example 4: Loop through an array
+const fruits = ["apple", "banana", "orange", "grape"];
+
+console.log("My favorite fruits:");
+for (let i = 0; i < fruits.length; i++) {
+    console.log((i + 1) + ". " + fruits[i]);
+}
+
+// Example 5: Object with methods
+const person = {
+    name: "Alice",
+    age: 30,
+    city: "New York",
+    introduce: function() {
+        return "Hello, I'm " + this.name + " from " + this.city;
+    }
+};
+
+console.log(person.introduce());
+
+// Try adding your own code below!
+let yourVariable = "Hello World";
+console.log(yourVariable);</textarea>
+                    </div>
+                    
+                    <button id="run-btn">Run Code</button>
+                    <button id="reset-btn" class="secondary">Reset Code</button>
+                    <button id="clear-btn">Clear Output</button>
+                    
+                    <h3>Console Output:</h3>
+                    <div class="preview" id="output">
+// Output will appear here after running your code
+                    </div>
+                </div>
+
+                <div class="example">
+                    <h3>Practice Exercises:</h3>
+                    <ul>
+                        <li>Create a function that converts Celsius to Fahrenheit</li>
+                        <li>Write a loop that prints even numbers from 0 to 20</li>
+                        <li>Create an object representing a book with properties and methods</li>
+                        <li>Write a function that checks if a number is prime</li>
+                        <li>Create a simple calculator that can add, subtract, multiply, and divide</li>
+                    </ul>
+                </div>
+
+                <div class="note">
+                    <strong>Tip:</strong> Use <span class="js-keyword">console.log()</span> to see your output. The browser's Developer Tools (F12) also show console output with more details.
+                </div>
+
+                <div class="warning">
+                    <strong>Warning:</strong> Be careful with infinite loops! They can crash your browser. Always test loops with small numbers first.
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>JavaScript Fundamentals Tutorial - Part 1 &copy; 2023 | Start your programming journey today!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Data Type Demo
+        function showDataType(type) {
+            const output = document.getElementById('dataTypeOutput');
+            let content = '';
+            
+            switch(type) {
+                case 'string':
+                    content = `let message = "Hello World";\n`;
+                    content += `console.log(typeof message); // "string"\n`;
+                    content += `console.log(message.length); // 11\n`;
+                    content += `console.log(message.toUpperCase()); // "HELLO WORLD"`;
+                    break;
+                    
+                case 'number':
+                    content = `let age = 25;\n`;
+                    content += `let price = 19.99;\n`;
+                    content += `console.log(typeof age); // "number"\n`;
+                    content += `console.log(age + price); // 44.99\n`;
+                    content += `console.log(Math.round(price)); // 20`;
+                    break;
+                    
+                case 'boolean':
+                    content = `let isLoggedIn = true;\n`;
+                    content += `let hasPermission = false;\n`;
+                    content += `console.log(typeof isLoggedIn); // "boolean"\n`;
+                    content += `console.log(!isLoggedIn); // false\n`;
+                    content += `console.log(isLoggedIn && hasPermission); // false`;
+                    break;
+                    
+                case 'array':
+                    content = `let colors = ["red", "green", "blue"];\n`;
+                    content += `console.log(typeof colors); // "object"\n`;
+                    content += `console.log(Array.isArray(colors)); // true\n`;
+                    content += `console.log(colors[0]); // "red"\n`;
+                    content += `console.log(colors.length); // 3`;
+                    break;
+                    
+                case 'object':
+                    content = `let person = {\n`;
+                    content += `  name: "Alice",\n`;
+                    content += `  age: 30,\n`;
+                    content += `  city: "New York"\n`;
+                    content += `};\n`;
+                    content += `console.log(typeof person); // "object"\n`;
+                    content += `console.log(person.name); // "Alice"\n`;
+                    content += `console.log(person["age"]); // 30`;
+                    break;
+            }
+            
+            output.textContent = content;
+        }
+
+        // Function Demo
+        function demoFunction(type) {
+            const output = document.getElementById('functionOutput');
+            let content = '';
+            
+            switch(type) {
+                case 'greet':
+                    content = `// Function Declaration\n`;
+                    content += `function greet(name) {\n`;
+                    content += `  return "Hello, " + name + "!";\n`;
+                    content += `}\n\n`;
+                    content += `// Usage\n`;
+                    content += `console.log(greet("Alice")); // "Hello, Alice!"\n`;
+                    content += `console.log(greet("Bob"));   // "Hello, Bob!"`;
+                    break;
+                    
+                case 'calculate':
+                    content = `// Function Expression\n`;
+                    content += `const calculateArea = function(radius) {\n`;
+                    content += `  return Math.PI * radius * radius;\n`;
+                    content += `};\n\n`;
+                    content += `// Usage\n`;
+                    content += `console.log(calculateArea(5)); // 78.53981633974483\n`;
+                    content += `console.log(calculateArea(10)); // 314.1592653589793`;
+                    break;
+                    
+                case 'arrow':
+                    content = `// Arrow Functions\n`;
+                    content += `const multiply = (a, b) => a * b;\n`;
+                    content += `const isAdult = age => age >= 18;\n\n`;
+                    content += `// Usage\n`;
+                    content += `console.log(multiply(4, 5)); // 20\n`;
+                    content += `console.log(isAdult(25)); // true\n`;
+                    content += `console.log(isAdult(15)); // false`;
+                    break;
+            }
+            
+            output.textContent = content;
+        }
+
+        // Loop Demo
+        function demoLoop(type) {
+            const output = document.getElementById('loopOutput');
+            let content = '';
+            
+            switch(type) {
+                case 'for':
+                    content = `// For Loop\n`;
+                    content += `for (let i = 0; i < 5; i++) {\n`;
+                    content += `  console.log("Count: " + i);\n`;
+                    content += `}\n\n`;
+                    content += `// Output:\n`;
+                    content += `Count: 0\n`;
+                    content += `Count: 1\n`;
+                    content += `Count: 2\n`;
+                    content += `Count: 3\n`;
+                    content += `Count: 4`;
+                    break;
+                    
+                case 'while':
+                    content = `// While Loop\n`;
+                    content += `let count = 0;\n`;
+                    content += `while (count < 3) {\n`;
+                    content += `  console.log("While count: " + count);\n`;
+                    content += `  count++;\n`;
+                    content += `}\n\n`;
+                    content += `// Output:\n`;
+                    content += `While count: 0\n`;
+                    content += `While count: 1\n`;
+                    content += `While count: 2`;
+                    break;
+                    
+                case 'dowhile':
+                    content = `// Do-While Loop\n`;
+                    content += `let number = 3;\n`;
+                    content += `do {\n`;
+                    content += `  console.log("Number: " + number);\n`;
+                    content += `  number--;\n`;
+                    content += `} while (number > 0);\n\n`;
+                    content += `// Output:\n`;
+                    content += `Number: 3\n`;
+                    content += `Number: 2\n`;
+                    content += `Number: 1`;
+                    break;
+                    
+                case 'forof':
+                    content = `// For...Of Loop\n`;
+                    content += `const fruits = ["apple", "banana", "orange"];\n`;
+                    content += `for (const fruit of fruits) {\n`;
+                    content += `  console.log("I like " + fruit);\n`;
+                    content += `}\n\n`;
+                    content += `// Output:\n`;
+                    content += `I like apple\n`;
+                    content += `I like banana\n`;
+                    content += `I like orange`;
+                    break;
+            }
+            
+            output.textContent = content;
+        }
+
+        // Run JavaScript code
+        document.getElementById('run-btn').addEventListener('click', function() {
+            const jsCode = document.getElementById('js-editor').value;
+            const outputElement = document.getElementById('output');
+            
+            // Clear previous output
+            outputElement.innerHTML = '';
+            
+            try {
+                // Capture console.log output
+                const originalLog = console.log;
+                let logOutput = '';
+                
+                console.log = function(...args) {
+                    logOutput += args.join(' ') + '\n';
+                    originalLog.apply(console, args);
+                };
+                
+                // Execute the code
+                eval(jsCode);
+                
+                // Restore original console.log
+                console.log = originalLog;
+                
+                // Display the output
+                outputElement.textContent = logOutput || 'Code executed successfully (no output)';
+            } catch (error) {
+                outputElement.innerHTML = `<span style="color: #fc8181;">Error: ${error.message}</span>`;
+            }
+        });
+
+        // Reset to example code
+        document.getElementById('reset-btn').addEventListener('click', function() {
+            document.getElementById('js-editor').value = `// JavaScript Practice Area
+// Try writing your own code below!
+
+// Example 1: Variables and basic operations
+let firstName = "John";
+let lastName = "Doe";
+let age = 25;
+
+console.log("Name: " + firstName + " " + lastName);
+console.log("Age: " + age);
+
+// Example 2: Simple function
+function calculateRectangleArea(width, height) {
+    return width * height;
+}
+
+let area = calculateRectangleArea(10, 5);
+console.log("Rectangle area: " + area);
+
+// Example 3: Conditional statements
+let temperature = 22;
+
+if (temperature > 30) {
+    console.log("It's a hot day!");
+} else if (temperature > 20) {
+    console.log("The weather is pleasant.");
+} else {
+    console.log("It's a bit chilly.");
+}
+
+// Example 4: Loop through an array
+const fruits = ["apple", "banana", "orange", "grape"];
+
+console.log("My favorite fruits:");
+for (let i = 0; i < fruits.length; i++) {
+    console.log((i + 1) + ". " + fruits[i]);
+}
+
+// Example 5: Object with methods
+const person = {
+    name: "Alice",
+    age: 30,
+    city: "New York",
+    introduce: function() {
+        return "Hello, I'm " + this.name + " from " + this.city;
+    }
+};
+
+console.log(person.introduce());
+
+// Try adding your own code below!
+let yourVariable = "Hello World";
+console.log(yourVariable);`;
+            
+            // Clear output
+            document.getElementById('output').textContent = '// Output will appear here after running your code';
+        });
+
+        // Clear output
+        document.getElementById('clear-btn').addEventListener('click', function() {
+            document.getElementById('output').textContent = '// Output cleared';
+        });
+
+        // Navigation buttons
+        document.getElementById('next-chapter').addEventListener('click', function() {
+            alert('Next part: JavaScript Arrays and Objects!');
+        });
+
+        document.getElementById('prev-chapter').addEventListener('click', function() {
+            alert('Returning to Advanced CSS...');
+        });
+
+        // Initialize with example output
+        document.getElementById('output').textContent = `Name: John Doe
+Age: 25
+Rectangle area: 50
+The weather is pleasant.
+My favorite fruits:
+1. apple
+2. banana
+3. orange
+4. grape
+Hello, I'm Alice from New York
+Hello World`;
+    </script>
+</body>
+</html>

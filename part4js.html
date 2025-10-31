@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Advanced Patterns & FP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 1024px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .lesson-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            height: fit-content;
+        }
+        
+        .practice-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        h2 {
+            color: #764ba2;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .lesson-content {
+            line-height: 1.7;
+        }
+        
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            overflow-x: auto;
+            font-size: 0.92rem;
+            border-left: 4px solid #667eea;
+            line-height: 1.5;
+        }
+        
+        .topic {
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .topic:last-child {
+            border-bottom: none;
+        }
+        
+        .topic-title {
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .topic-title::before {
+            content: "▶";
+            font-size: 0.8em;
+            color: #667eea;
+        }
+        
+        .practice-area {
+            margin-top: 25px;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            resize: vertical;
+            margin-bottom: 18px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+            background: #f8f9fa;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 1rem;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        button.secondary {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        }
+        
+        .output {
+            margin-top: 20px;
+            padding: 20px;
+            background: #1a202c;
+            color: #e2e8f0;
+            border-radius: 8px;
+            min-height: 150px;
+            border-left: 4px solid #667eea;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        
+        .example {
+            background: #f0f4ff;
+            padding: 18px;
+            border-radius: 8px;
+            margin: 18px 0;
+            border-left: 4px solid #764ba2;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 25px;
+            opacity: 0.9;
+        }
+        
+        .lesson-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .lesson-tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-weight: 500;
+            border-radius: 6px 6px 0 0;
+        }
+        
+        .lesson-tab.active {
+            border-bottom: 3px solid #667eea;
+            font-weight: bold;
+            color: #667eea;
+            background: #f8f9fa;
+        }
+        
+        .lesson-tab:hover:not(.active) {
+            background: #f8f9fa;
+            border-bottom: 3px solid #c3dafe;
+        }
+        
+        .lesson-content {
+            display: none;
+        }
+        
+        .lesson-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 14px 18px;
+            margin: 18px 0;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+        
+        .warning {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 14px 18px;
+            margin: 18px 0;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+        
+        .pattern-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        
+        .fp-badge {
+            display: inline-block;
+            background: #48bb78;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Advanced Patterns & Functional Programming</h1>
+            <p class="subtitle">Master design patterns, functional programming concepts, and write more maintainable, scalable JavaScript code</p>
+        </header>
+        
+        <div class="content">
+            <section class="lesson-section">
+                <div class="lesson-tabs">
+                    <div class="lesson-tab active" data-tab="design-patterns">Design Patterns</div>
+                    <div class="lesson-tab" data-tab="functional">Functional Programming</div>
+                    <div class="lesson-tab" data-tab="composition">Composition & Currying</div>
+                    <div class="lesson-tab" data-tab="advanced-fp">Advanced FP</div>
+                </div>
+                
+                <div id="design-patterns" class="lesson-content active">
+                    <h2>Design Patterns in JavaScript</h2>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Singleton Pattern <span class="pattern-badge">Creational</span></div>
+                        <p>Ensures a class has only one instance and provides a global point of access to it.</p>
+                        <div class="code-block">
+                            class DatabaseConnection {
+                                constructor() {
+                                    if (DatabaseConnection.instance) {
+                                        return DatabaseConnection.instance;
+                                    }
+                                    
+                                    this.connection = this.createConnection();
+                                    DatabaseConnection.instance = this;
+                                    
+                                    return this;
+                                }
+                                
+                                createConnection() {
+                                    // Simulate database connection
+                                    console.log('Creating new database connection...');
+                                    return { connected: true, id: Math.random() };
+                                }
+                                
+                                query(sql) {
+                                    console.log(`Executing: ${sql}`);
+                                    return { results: [] };
+                                }
+                            }
+                            
+                            // Usage
+                            const db1 = new DatabaseConnection();
+                            const db2 = new DatabaseConnection();
+                            
+                            console.log(db1 === db2); // true - same instance
+                            console.log(db1.connection === db2.connection); // true
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Factory Pattern <span class="pattern-badge">Creational</span></div>
+                        <p>Creates objects without exposing the instantiation logic to the client.</p>
+                        <div class="code-block">
+                            class Car {
+                                constructor(type, price) {
+                                    this.type = type;
+                                    this.price = price;
+                                }
+                                
+                                getInfo() {
+                                    return `${this.type} - $${this.price}`;
+                                }
+                            }
+                            
+                            class CarFactory {
+                                createCar(type) {
+                                    switch (type) {
+                                        case 'sedan':
+                                            return new Car('Sedan', 25000);
+                                        case 'suv':
+                                            return new Car('SUV', 35000);
+                                        case 'sports':
+                                            return new Car('Sports Car', 50000);
+                                        default:
+                                            throw new Error('Unknown car type');
+                                    }
+                                }
+                            }
+                            
+                            // Usage
+                            const factory = new CarFactory();
+                            const sedan = factory.createCar('sedan');
+                            const suv = factory.createCar('suv');
+                            
+                            console.log(sedan.getInfo()); // Sedan - $25000
+                            console.log(suv.getInfo());   // SUV - $35000
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Observer Pattern <span class="pattern-badge">Behavioral</span></div>
+                        <p>Defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified.</p>
+                        <div class="code-block">
+                            class Observable {
+                                constructor() {
+                                    this.observers = [];
+                                }
+                                
+                                subscribe(observer) {
+                                    this.observers.push(observer);
+                                }
+                                
+                                unsubscribe(observer) {
+                                    this.observers = this.observers.filter(obs => obs !== observer);
+                                }
+                                
+                                notify(data) {
+                                    this.observers.forEach(observer => observer.update(data));
+                                }
+                            }
+                            
+                            class Observer {
+                                constructor(name) {
+                                    this.name = name;
+                                }
+                                
+                                update(data) {
+                                    console.log(`${this.name} received:`, data);
+                                }
+                            }
+                            
+                            // Usage
+                            const subject = new Observable();
+                            
+                            const observer1 = new Observer('Observer 1');
+                            const observer2 = new Observer('Observer 2');
+                            
+                            subject.subscribe(observer1);
+                            subject.subscribe(observer2);
+                            
+                            subject.notify('Hello Observers!');
+                            // Observer 1 received: Hello Observers!
+                            // Observer 2 received: Hello Observers!
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="functional" class="lesson-content">
+                    <h2>Functional Programming Fundamentals</h2>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Pure Functions <span class="fp-badge">Core Concept</span></div>
+                        <p>Functions that always return the same output for the same input and have no side effects.</p>
+                        <div class="code-block">
+                            // Pure function
+                            function add(a, b) {
+                                return a + b;
+                            }
+                            
+                            // Impure function (has side effect)
+                            let total = 0;
+                            function impureAdd(a, b) {
+                                total = a + b;  // Modifies external state
+                                return total;
+                            }
+                            
+                            // Pure function with objects (immutable)
+                            function updateUser(user, newName) {
+                                return {
+                                    ...user,
+                                    name: newName,
+                                    updatedAt: Date.now()
+                                };
+                            }
+                            
+                            const user = { name: 'John', age: 30 };
+                            const updatedUser = updateUser(user, 'Jane');
+                            
+                            console.log(user);        // { name: 'John', age: 30 }
+                            console.log(updatedUser); // { name: 'Jane', age: 30, updatedAt: ... }
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Immutability <span class="fp-badge">Core Concept</span></div>
+                        <p>Data cannot be changed after creation. Instead, new data is created.</p>
+                        <div class="code-block">
+                            // Mutable approach (avoid)
+                            const numbers = [1, 2, 3];
+                            numbers.push(4); // Modifies original array
+                            
+                            // Immutable approach (prefer)
+                            const originalNumbers = [1, 2, 3];
+                            const newNumbers = [...originalNumbers, 4]; // Creates new array
+                            
+                            // With objects
+                            const person = { name: 'Alice', age: 25 };
+                            
+                            // Mutable (bad)
+                            person.age = 26; // Modifies original
+                            
+                            // Immutable (good)
+                            const updatedPerson = { ...person, age: 26 };
+                            
+                            // Deep immutability with nested objects
+                            const company = {
+                                name: 'Tech Corp',
+                                employees: ['John', 'Jane']
+                            };
+                            
+                            const updatedCompany = {
+                                ...company,
+                                employees: [...company.employees, 'Bob']
+                            };
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Higher-Order Functions <span class="fp-badge">Core Concept</span></div>
+                        <p>Functions that take other functions as arguments or return functions.</p>
+                        <div class="code-block">
+                            // Function that returns a function
+                            function multiplyBy(factor) {
+                                return function(number) {
+                                    return number * factor;
+                                };
+                            }
+                            
+                            const double = multiplyBy(2);
+                            const triple = multiplyBy(3);
+                            
+                            console.log(double(5)); // 10
+                            console.log(triple(5)); // 15
+                            
+                            // Function that takes a function as argument
+                            function processNumbers(numbers, processor) {
+                                return numbers.map(processor);
+                            }
+                            
+                            const numbers = [1, 2, 3, 4, 5];
+                            const squared = processNumbers(numbers, x => x * x);
+                            const doubled = processNumbers(numbers, double);
+                            
+                            console.log(squared); // [1, 4, 9, 16, 25]
+                            console.log(doubled); // [2, 4, 6, 8, 10]
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="composition" class="lesson-content">
+                    <h2>Function Composition & Currying</h2>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Function Composition <span class="fp-badge">Advanced FP</span></div>
+                        <p>Combining simple functions to build more complex ones.</p>
+                        <div class="code-block">
+                            // Basic composition
+                            const compose = (...fns) => (x) => 
+                                fns.reduceRight((acc, fn) => fn(acc), x);
+                            
+                            const add5 = x => x + 5;
+                            const multiply3 = x => x * 3;
+                            const subtract2 = x => x - 2;
+                            
+                            // Create a new function by composing others
+                            const complexOperation = compose(subtract2, multiply3, add5);
+                            
+                            console.log(complexOperation(10)); 
+                            // Steps: 10 + 5 = 15, 15 * 3 = 45, 45 - 2 = 43
+                            
+                            // Pipe (left-to-right composition)
+                            const pipe = (...fns) => (x) => 
+                                fns.reduce((acc, fn) => fn(acc), x);
+                            
+                            const pipedOperation = pipe(add5, multiply3, subtract2);
+                            console.log(pipedOperation(10)); // Same result: 43
+                            
+                            // Practical example: processing user data
+                            const users = [
+                                { name: 'john', age: 25, active: true },
+                                { name: 'jane', age: 17, active: true },
+                                { name: 'bob', age: 30, active: false }
+                            ];
+                            
+                            const filterActive = users => users.filter(u => u.active);
+                            const filterAdults = users => users.filter(u => u.age >= 18);
+                            const capitalizeNames = users => users.map(u => ({
+                                ...u,
+                                name: u.name.charAt(0).toUpperCase() + u.name.slice(1)
+                            }));
+                            
+                            const processUsers = pipe(
+                                filterActive,
+                                filterAdults,
+                                capitalizeNames
+                            );
+                            
+                            console.log(processUsers(users));
+                            // [{ name: 'John', age: 25, active: true }]
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Currying <span class="fp-badge">Advanced FP</span></div>
+                        <p>Transforming a function that takes multiple arguments into a sequence of functions that each take a single argument.</p>
+                        <div class="code-block">
+                            // Regular function
+                            function add(a, b, c) {
+                                return a + b + c;
+                            }
+                            
+                            // Curried version
+                            function curriedAdd(a) {
+                                return function(b) {
+                                    return function(c) {
+                                        return a + b + c;
+                                    };
+                                };
+                            }
+                            
+                            // Using the curried function
+                            const add5 = curriedAdd(5);
+                            const add5And10 = add5(10);
+                            const result = add5And10(15); // 30
+                            
+                            console.log(result);
+                            
+                            // Modern curry utility
+                            const curry = (fn) => {
+                                return function curried(...args) {
+                                    if (args.length >= fn.length) {
+                                        return fn.apply(this, args);
+                                    } else {
+                                        return (...moreArgs) => 
+                                            curried.apply(this, args.concat(moreArgs));
+                                    }
+                                };
+                            };
+                            
+                            // Currying a practical function
+                            const createMessage = curry((greeting, name, punctuation) => {
+                                return `${greeting}, ${name}${punctuation}`;
+                            });
+                            
+                            const sayHello = createMessage('Hello');
+                            const sayHelloToJohn = sayHello('John');
+                            
+                            console.log(sayHelloToJohn('!')); // Hello, John!
+                            console.log(sayHelloToJohn('?')); // Hello, John?
+                            
+                            // Partial application with currying
+                            const users = [
+                                { id: 1, role: 'admin' },
+                                { id: 2, role: 'user' },
+                                { id: 3, role: 'admin' }
+                            ];
+                            
+                            const hasRole = curry((role, user) => user.role === role);
+                            const isAdmin = hasRole('admin');
+                            const admins = users.filter(isAdmin);
+                            
+                            console.log(admins); // Users with admin role
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="advanced-fp" class="lesson-content">
+                    <h2>Advanced Functional Programming</h2>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Functor, Monad, Maybe <span class="fp-badge">Advanced FP</span></div>
+                        <p>Functional programming constructs for handling side effects and null values safely.</p>
+                        <div class="code-block">
+                            // Maybe Monad for safe null handling
+                            class Maybe {
+                                constructor(value) {
+                                    this._value = value;
+                                }
+                                
+                                static of(value) {
+                                    return new Maybe(value);
+                                }
+                                
+                                map(fn) {
+                                    return this.isNothing() 
+                                        ? Maybe.of(null)
+                                        : Maybe.of(fn(this._value));
+                                }
+                                
+                                isNothing() {
+                                    return this._value === null || this._value === undefined;
+                                }
+                                
+                                getOrElse(defaultValue) {
+                                    return this.isNothing() ? defaultValue : this._value;
+                                }
+                            }
+                            
+                            // Usage: Safe property access and transformation
+                            const user = {
+                                profile: {
+                                    name: 'John',
+                                    address: {
+                                        street: '123 Main St',
+                                        city: 'Boston'
+                                    }
+                                }
+                            };
+                            
+                            const getUserCity = (user) => 
+                                Maybe.of(user)
+                                    .map(u => u.profile)
+                                    .map(p => p.address)
+                                    .map(a => a.city)
+                                    .getOrElse('Unknown city');
+                            
+                            console.log(getUserCity(user)); // Boston
+                            
+                            const userWithoutAddress = { profile: { name: 'Jane' } };
+                            console.log(getUserCity(userWithoutAddress)); // Unknown city
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Lenses <span class="fp-badge">Advanced FP</span></div>
+                        <p>Functional references for accessing and modifying nested data structures.</p>
+                        <div class="code-block">
+                            // Simple lens implementation
+                            const lens = (getter, setter) => ({
+                                get: obj => getter(obj),
+                                set: (value, obj) => setter(value, obj)
+                            });
+                            
+                            // Lens for object properties
+                            const prop = key => lens(
+                                obj => obj[key],
+                                (value, obj) => ({ ...obj, [key]: value })
+                            );
+                            
+                            // Lens for nested properties
+                            const composeLenses = (lens1, lens2) => lens(
+                                obj => lens2.get(lens1.get(obj)),
+                                (value, obj) => lens1.set(lens2.set(value, lens1.get(obj)), obj)
+                            );
+                            
+                            // Usage
+                            const user = {
+                                name: 'Alice',
+                                address: {
+                                    street: '456 Oak St',
+                                    city: 'Seattle'
+                                }
+                            };
+                            
+                            const addressLens = prop('address');
+                            const cityLens = prop('city');
+                            const addressCityLens = composeLenses(addressLens, cityLens);
+                            
+                            console.log(addressCityLens.get(user)); // Seattle
+                            
+                            const updatedUser = addressCityLens.set('Portland', user);
+                            console.log(updatedUser.address.city); // Portland
+                            console.log(user.address.city); // Seattle (original unchanged)
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">Transducers <span class="fp-badge">Advanced FP</span></div>
+                        <p>Composable and efficient data transformation pipelines.</p>
+                        <div class="code-block">
+                            // Basic transducer implementation
+                            const map = (f) => (reducer) => (acc, val) => reducer(acc, f(val));
+                            
+                            const filter = (predicate) => (reducer) => (acc, val) => 
+                                predicate(val) ? reducer(acc, val) : acc;
+                            
+                            const compose = (...fns) => (x) => 
+                                fns.reduceRight((acc, fn) => fn(acc), x);
+                            
+                            const transduce = (transducer, reducer, initial, collection) =>
+                                collection.reduce(transducer(reducer), initial);
+                            
+                            // Usage
+                            const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+                            
+                            const double = x => x * 2;
+                            const isEven = x => x % 2 === 0;
+                            
+                            // Create a transducer pipeline
+                            const xform = compose(
+                                filter(isEven),
+                                map(double)
+                            );
+                            
+                            // Apply the transducer
+                            const result = transduce(xform, (acc, val) => {
+                                acc.push(val);
+                                return acc;
+                            }, [], numbers);
+                            
+                            console.log(result); // [4, 8, 12, 16, 20]
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button id="prev-btn">← Previous: Async & APIs</button>
+                    <button id="next-btn">Next: Performance & Optimization →</button>
+                </div>
+            </section>
+            
+            <section class="practice-section">
+                <h2>Practice Functional Programming</h2>
+                <p>Experiment with advanced patterns and functional programming concepts.</p>
+                
+                <div class="practice-area">
+                    <textarea id="code-input" placeholder="Enter your JavaScript code here...">// Practice: Function Composition and Currying
+
+// Example 1: Create a user processing pipeline
+const users = [
+  { name: 'alice', age: 25, active: true, salary: 50000 },
+  { name: 'bob', age: 17, active: true, salary: 20000 },
+  { name: 'charlie', age: 30, active: false, salary: 70000 },
+  { name: 'diana', age: 28, active: true, salary: 60000 }
+];
+
+// Utility functions
+const filterActive = users => users.filter(u => u.active);
+const filterAdults = users => users.filter(u => u.age >= 18);
+const capitalizeName = user => ({
+  ...user,
+  name: user.name.charAt(0).toUpperCase() + user.name.slice(1)
+});
+const addBonus = bonus => user => ({
+  ...user,
+  salary: user.salary + bonus
+});
+
+// Compose a processing pipeline
+const processUsers = users => {
+  return users
+    .filter(u => u.active && u.age >= 18)
+    .map(capitalizeName)
+    .map(addBonus(5000));
+};
+
+console.log('Processed Users:');
+console.log(processUsers(users));
+
+// Example 2: Currying in action
+const multiply = a => b => a * b;
+const double = multiply(2);
+const triple = multiply(3);
+
+console.log('\nCurrying Examples:');
+console.log('Double 10:', double(10));
+console.log('Triple 10:', triple(10));
+
+// Example 3: Maybe monad for safe operations
+class Maybe {
+  constructor(value) {
+    this._value = value;
+  }
+  
+  static of(value) {
+    return new Maybe(value);
+  }
+  
+  map(fn) {
+    return this._value == null ? this : Maybe.of(fn(this._value));
+  }
+  
+  getOrElse(defaultValue) {
+    return this._value == null ? defaultValue : this._value;
+  }
+}
+
+const safeDivide = (numerator, denominator) =>
+  Maybe.of(denominator === 0 ? null : numerator / denominator);
+
+console.log('\nSafe Division:');
+console.log('10 / 2:', safeDivide(10, 2).getOrElse('Cannot divide by zero'));
+console.log('10 / 0:', safeDivide(10, 0).getOrElse('Cannot divide by zero'));</textarea>
+                    
+                    <div>
+                        <button id="run-btn">Run Code</button>
+                        <button id="clear-btn" class="secondary">Clear Output</button>
+                    </div>
+                    
+                    <div class="output" id="output">
+// Output will appear here after running your code
+                    </div>
+                </div>
+                
+                <div class="example">
+                    <h3>Practice Exercises:</h3>
+                    <ul>
+                        <li>Implement a memoization function using closures</li>
+                        <li>Create a reactive store using the Observer pattern</li>
+                        <li>Build a validation pipeline using function composition</li>
+                        <li>Implement the Either monad for error handling</li>
+                        <li>Create a state management system using lenses</li>
+                    </ul>
+                </div>
+                
+                <div class="note">
+                    <strong>Tip:</strong> Functional programming encourages small, reusable functions. Try to break down complex problems into simple, composable pieces.
+                </div>
+                
+                <div class="warning">
+                    <strong>Warning:</strong> While powerful, don't overuse advanced patterns. Choose the right tool for the job and prioritize code readability.
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>Advanced JavaScript Patterns & Functional Programming &copy; 2023 | Write better, more maintainable code!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.lesson-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.lesson-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.lesson-content').forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+        
+        // Run code button functionality
+        document.getElementById('run-btn').addEventListener('click', function() {
+            const codeInput = document.getElementById('code-input').value;
+            const outputElement = document.getElementById('output');
+            
+            outputElement.style.color = '#e2e8f0';
+            
+            try {
+                const originalLog = console.log;
+                let logOutput = '';
+                
+                console.log = function(...args) {
+                    logOutput += args.map(arg => {
+                        if (typeof arg === 'object') {
+                            return JSON.stringify(arg, null, 2);
+                        }
+                        return String(arg);
+                    }).join(' ') + '\n';
+                    originalLog.apply(console, args);
+                };
+                
+                // Execute the code
+                eval(codeInput);
+                
+                // Restore original console methods
+                console.log = originalLog;
+                
+                outputElement.textContent = logOutput || 'Code executed successfully (no output)';
+            } catch (error) {
+                outputElement.style.color = '#fc8181';
+                outputElement.textContent = `Error: ${error.message}\n\nStack: ${error.stack}`;
+            }
+        });
+        
+        // Clear output button
+        document.getElementById('clear-btn').addEventListener('click', function() {
+            document.getElementById('output').textContent = '// Output cleared';
+        });
+        
+        // Navigation buttons
+        document.getElementById('next-btn').addEventListener('click', function() {
+            alert('Next part: Performance Optimization & Memory Management!');
+        });
+        
+        document.getElementById('prev-btn').addEventListener('click', function() {
+            alert('Returning to Async JavaScript & APIs...');
+        });
+        
+        // Initialize with example output
+        document.getElementById('output').textContent = `Processed Users:
+[
+  {
+    "name": "Alice",
+    "age": 25,
+    "active": true,
+    "salary": 55000
+  },
+  {
+    "name": "Diana",
+    "age": 28,
+    "active": true,
+    "salary": 65000
+  }
+]
+
+Currying Examples:
+Double 10: 20
+Triple 10: 30
+
+Safe Division:
+10 / 2: 5
+10 / 0: Cannot divide by zero`;
+    </script>
+</body>
+</html>

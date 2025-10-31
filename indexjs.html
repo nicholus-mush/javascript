@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Basics Tutorial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .lesson-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .practice-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        h2 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #fdbb2d;
+        }
+        
+        .lesson-content {
+            line-height: 1.6;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        .topic {
+            margin-bottom: 25px;
+        }
+        
+        .topic-title {
+            font-weight: bold;
+            color: #b21f1f;
+            margin-bottom: 8px;
+        }
+        
+        .practice-area {
+            margin-top: 20px;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+        
+        button {
+            background: #1a2a6c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #b21f1f;
+        }
+        
+        .output {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            min-height: 100px;
+            border-left: 4px solid #1a2a6c;
+        }
+        
+        .example {
+            background: #e8f4fd;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            padding: 20px;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JavaScript Basics Tutorial</h1>
+            <p class="subtitle">Learn JavaScript by doing - right in your browser!</p>
+        </header>
+        
+        <div class="content">
+            <section class="lesson-section">
+                <h2>JavaScript Fundamentals</h2>
+                
+                <div class="lesson-content">
+                    <div class="topic">
+                        <div class="topic-title">1. Variables</div>
+                        <p>Variables are containers for storing data values.</p>
+                        <div class="code-block">
+                            // Declaring variables<br>
+                            let name = "John";<br>
+                            const age = 30;<br>
+                            var isStudent = true;<br><br>
+                            
+                            // Using variables<br>
+                            console.log(name); // Output: John<br>
+                            console.log(age);  // Output: 30
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">2. Data Types</div>
+                        <p>JavaScript has dynamic types. The same variable can hold different data types.</p>
+                        <div class="code-block">
+                            // String<br>
+                            let text = "Hello World";<br><br>
+                            
+                            // Number<br>
+                            let number = 42;<br>
+                            let decimal = 3.14;<br><br>
+                            
+                            // Boolean<br>
+                            let isTrue = true;<br>
+                            let isFalse = false;<br><br>
+                            
+                            // Array<br>
+                            let fruits = ["Apple", "Banana", "Orange"];<br><br>
+                            
+                            // Object<br>
+                            let person = {<br>
+                            &nbsp;&nbsp;firstName: "Jane",<br>
+                            &nbsp;&nbsp;lastName: "Doe",<br>
+                            &nbsp;&nbsp;age: 25<br>
+                            };
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">3. Functions</div>
+                        <p>Functions are blocks of code designed to perform a particular task.</p>
+                        <div class="code-block">
+                            // Function declaration<br>
+                            function greet(name) {<br>
+                            &nbsp;&nbsp;return "Hello, " + name + "!";<br>
+                            }<br><br>
+                            
+                            // Function call<br>
+                            let message = greet("Alice");<br>
+                            console.log(message); // Output: Hello, Alice!<br><br>
+                            
+                            // Arrow function (ES6)<br>
+                            const multiply = (a, b) => a * b;<br>
+                            console.log(multiply(5, 3)); // Output: 15
+                        </div>
+                    </div>
+                    
+                    <div class="topic">
+                        <div class="topic-title">4. Conditional Statements</div>
+                        <p>Conditional statements are used to perform different actions based on different conditions.</p>
+                        <div class="code-block">
+                            let temperature = 25;<br><br>
+                            
+                            if (temperature > 30) {<br>
+                            &nbsp;&nbsp;console.log("It's hot outside!");<br>
+                            } else if (temperature > 20) {<br>
+                            &nbsp;&nbsp;console.log("The weather is pleasant.");<br>
+                            } else {<br>
+                            &nbsp;&nbsp;console.log("It's cold outside!");<br>
+                            }<br><br>
+                            
+                            // Ternary operator<br>
+                            let isAdult = age >= 18 ? "Yes" : "No";
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button id="prev-btn">Previous</button>
+                    <button id="next-btn">Next Lesson</button>
+                </div>
+            </section>
+            
+            <section class="practice-section">
+                <h2>Practice Area</h2>
+                <p>Try writing JavaScript code below and see the output!</p>
+                
+                <div class="practice-area">
+                    <textarea id="code-input" placeholder="Enter your JavaScript code here...">// Example: Try changing this code and click "Run Code"
+let greeting = "Hello, JavaScript!";
+let numbers = [1, 2, 3, 4, 5];
+let sum = numbers.reduce((a, b) => a + b, 0);
+
+console.log(greeting);
+console.log("Sum of numbers:", sum);
+console.log("Today is:", new Date().toLocaleDateString());</textarea>
+                    
+                    <button id="run-btn">Run Code</button>
+                    
+                    <div class="output" id="output">
+                        Output will appear here after running your code.
+                    </div>
+                </div>
+                
+                <div class="example">
+                    <h3>Try These Examples:</h3>
+                    <ul>
+                        <li>Create a function that calculates the area of a circle</li>
+                        <li>Write a loop that prints numbers from 1 to 10</li>
+                        <li>Create an object representing a book with properties</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>JavaScript Tutorial &copy; 2023 | Keep practicing to master JavaScript!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Run code button functionality
+        document.getElementById('run-btn').addEventListener('click', function() {
+            const codeInput = document.getElementById('code-input').value;
+            const outputElement = document.getElementById('output');
+            
+            // Clear previous output
+            outputElement.innerHTML = '';
+            
+            try {
+                // Capture console.log output
+                const originalLog = console.log;
+                let logOutput = '';
+                
+                console.log = function(...args) {
+                    logOutput += args.join(' ') + '<br>';
+                    originalLog.apply(console, args);
+                };
+                
+                // Execute the code
+                eval(codeInput);
+                
+                // Restore original console.log
+                console.log = originalLog;
+                
+                // Display the output
+                outputElement.innerHTML = logOutput || 'Code executed successfully (no output)';
+            } catch (error) {
+                outputElement.innerHTML = `<span style="color: red;">Error: ${error.message}</span>`;
+            }
+        });
+        
+        // Navigation buttons (simplified for this example)
+        document.getElementById('next-btn').addEventListener('click', function() {
+            alert('In a full tutorial, this would load the next lesson. Keep learning!');
+        });
+        
+        document.getElementById('prev-btn').addEventListener('click', function() {
+            alert('In a full tutorial, this would load the previous lesson.');
+        });
+        
+        // Initialize with a simple example output
+        document.getElementById('output').innerHTML = 
+            'Hello, JavaScript!<br>' +
+            'Sum of numbers: 15<br>' +
+            'Today is: ' + new Date().toLocaleDateString();
+    </script>
+</body>
+</html>
